@@ -1,0 +1,57 @@
+name: Build Bilibili Archive
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+  push:
+    branches:
+      - master
+    paths:
+      - '**/github.com/alice52/archive/**'
+      - '.github/workflows/build-archive.yml'
+  pull_request:
+
+concurrency:
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest'] # "macOS-latest"
+        go: ['1.18.x', '1.19.x', '1.20.x', '1.21.x']
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    env:
+      PROJECT_PREFIX: github.com/alice52/archive
+    steps:
+      - name: Export Global Var
+        run: |
+          echo "PROJECT_HOME=$PWD" >> $GITHUB_ENV
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - uses: WillAbides/setup-go-faster@v1.12.0
+        with:
+          go-version: ${{ matrix.go }}
+
+      # - name: golangci-lint
+      #   uses: golangci/golangci-lint-action@v3
+      #   with:
+      #     version: v1.54
+      - name: Install xargs
+        run: |
+          sudo apt-get update && sudo apt-get install -y findutils
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+      - name: Build Bilibili Archive
+        run: |
+          cd $PROJECT_HOME/$PROJECT_PREFIX/
+          #go list -f '{{.Dir}}/...' -m | xargs golangci-lint run
+          go list -f '{{.Dir}}/...' -m | xargs go build -o bin/
+        env:
+          PATH: /usr/local/bin:$PATH

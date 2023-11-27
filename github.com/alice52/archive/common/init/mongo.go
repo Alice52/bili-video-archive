@@ -101,12 +101,12 @@ func (m *mongo) CreateIndexes(ctx context.Context, name string, indexes [][]stri
 	length = len(entities)
 	indexMap2 := make(map[string]map[string]string, length)
 	for i := 0; i < length; i++ {
-		v1, o1 := indexMap2[entities[i].Name]
+		var v1, o1 = indexMap2[entities[i].Name]
 		if !o1 {
 			keyLength := len(entities[i].Key)
 			v1 = make(map[string]string, keyLength)
 			for j := 0; j < keyLength; j++ {
-				v2, o2 := v1[entities[i].Key[j].Key]
+				var v2, o2 = v1[entities[i].Key[j].Key]
 				if !o2 {
 					v1 = make(map[string]string)
 				}
