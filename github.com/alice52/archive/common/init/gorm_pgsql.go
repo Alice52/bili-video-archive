@@ -10,7 +10,7 @@ import (
 
 // GormPgSql 初始化 Postgresql 数据库
 func GormPgSql() *gorm.DB {
-	p := global.GLOBAL_CONFIG.Pgsql
+	p := global.CONFIG.Pgsql
 	if p.Dbname == "" {
 		return nil
 	}

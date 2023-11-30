@@ -37,27 +37,27 @@ func (m *mongo) Indexes(ctx context.Context) error {
 
 func (m *mongo) Initialization() error {
 	var opts []options.ClientOptions
-	if global.GLOBAL_CONFIG.Mongo.IsZap {
+	if global.CONFIG.Mongo.IsZap {
 		opts = internal.Mongo.GetClientOptions()
 	}
 	ctx := context.Background()
 	client, err := qmgo.Open(ctx, &qmgo.Config{
-		Uri:              global.GLOBAL_CONFIG.Mongo.Uri(),
-		Coll:             global.GLOBAL_CONFIG.Mongo.Coll,
-		Database:         global.GLOBAL_CONFIG.Mongo.Database,
-		MinPoolSize:      &global.GLOBAL_CONFIG.Mongo.MinPoolSize,
-		MaxPoolSize:      &global.GLOBAL_CONFIG.Mongo.MaxPoolSize,
-		SocketTimeoutMS:  &global.GLOBAL_CONFIG.Mongo.SocketTimeoutMs,
-		ConnectTimeoutMS: &global.GLOBAL_CONFIG.Mongo.ConnectTimeoutMs,
+		Uri:              global.CONFIG.Mongo.Uri(),
+		Coll:             global.CONFIG.Mongo.Coll,
+		Database:         global.CONFIG.Mongo.Database,
+		MinPoolSize:      &global.CONFIG.Mongo.MinPoolSize,
+		MaxPoolSize:      &global.CONFIG.Mongo.MaxPoolSize,
+		SocketTimeoutMS:  &global.CONFIG.Mongo.SocketTimeoutMs,
+		ConnectTimeoutMS: &global.CONFIG.Mongo.ConnectTimeoutMs,
 		Auth: &qmgo.Credential{
-			Username: global.GLOBAL_CONFIG.Mongo.Username,
-			Password: global.GLOBAL_CONFIG.Mongo.Password,
+			Username: global.CONFIG.Mongo.Username,
+			Password: global.CONFIG.Mongo.Password,
 		},
 	}, opts...)
 	if err != nil {
 		return errors.Wrap(err, "链接mongodb数据库失败!")
 	}
-	global.GLOBAL_MONGO = client
+	global.MONGO = client
 	err = m.Indexes(ctx)
 	if err != nil {
 		return err
@@ -66,7 +66,7 @@ func (m *mongo) Initialization() error {
 }
 
 func (m *mongo) CreateIndexes(ctx context.Context, name string, indexes [][]string) error {
-	collection, err := global.GLOBAL_MONGO.Database.Collection(name).CloneCollection()
+	collection, err := global.MONGO.Database.Collection(name).CloneCollection()
 	if err != nil {
 		return errors.Wrapf(err, "获取[%s]的表对象失败!", name)
 	}
@@ -121,7 +121,7 @@ func (m *mongo) CreateIndexes(ctx context.Context, name string, indexes [][]stri
 		if o2 {
 			continue
 		} // 索引存在
-		err = global.GLOBAL_MONGO.Database.Collection(name).CreateOneIndex(ctx, options.IndexModel{Key: v1})
+		err = global.MONGO.Database.Collection(name).CreateOneIndex(ctx, options.IndexModel{Key: v1})
 		if err != nil {
 			return errors.Wrapf(err, "创建索引[%s]失败!", k1)
 		}

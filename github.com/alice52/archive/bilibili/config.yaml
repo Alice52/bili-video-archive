@@ -1,0 +1,52 @@
+db-list:
+  - type: "pgsql"
+    alias-name: ""
+    prefix: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    path: ""
+    engine: ""
+    log-mode: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+    disable: true
+email:
+  to: xxx@qq.com
+  from: xxx@163.com
+  host: smtp.163.com
+  secret: xxx
+  nickname: test
+  port: 465
+  is-ssl: true
+system:
+  env: local
+  db-type: pgsql
+  addr: 8888
+  use-mongo: false
+  use-redis: false
+timer:
+  spec: '@daily'
+  detail:
+    - tableName: sys_operation_records
+      compareField: created_at
+      interval: 2160h
+    - tableName: jwt_blacklists
+      compareField: created_at
+      interval: 168h
+  start: true
+  with_seconds: false
+zap:
+  level: debug
+  prefix: '[github.com/alice52/bili-video-archive]'
+  format: console
+  director: log
+  encode-level: LowercaseColorLevelEncoder
+  stacktrace-key: stacktrace
+  max-age: 0
+  show-line: true
+  log-in-console: true

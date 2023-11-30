@@ -12,14 +12,15 @@ import (
 )
 
 var (
-	GLOBAL_DB    *gorm.DB
-	GLOBAL_MONGO *qmgo.QmgoClient
+	CONFIG config.Server
+	VIPER  *viper.Viper
+	LOG    *zap.Logger
 
-	GLOBAL_DBList map[string]*gorm.DB
-	GLOBAL_CONFIG config.Server
-	GLOBAL_VP     *viper.Viper
-	GLOBAL_LOG    *zap.Logger
-	GLOBAL_Timer  util.Timer = util.NewTimerTask()
+	DB     *gorm.DB
+	DBList map[string]*gorm.DB
+	MONGO  *qmgo.QmgoClient
+
+	Timer = util.NewTimerTask()
 
 	lock sync.RWMutex
 )
