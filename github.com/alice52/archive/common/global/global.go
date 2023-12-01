@@ -2,7 +2,6 @@ package global
 
 import (
 	"github.com/alice52/archive/common/config"
-	"github.com/alice52/archive/common/util"
 	"sync"
 
 	"github.com/qiniu/qmgo"
@@ -20,7 +19,7 @@ var (
 	DBList map[string]*gorm.DB
 	MONGO  *qmgo.QmgoClient
 
-	Timer = util.NewTimerTask()
+	Timer *config.Timer
 
 	lock sync.RWMutex
 )

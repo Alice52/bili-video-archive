@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type GVA_MODEL struct {
+type BASE_MODEL struct {
 	ID        uint32         `gorm:"primarykey"` // 主键ID
 	CreatedAt time.Time      // 创建时间
 	CreatedBy string         // 创建者

@@ -1,52 +1,39 @@
-db-list:
-  - type: "pgsql"
-    alias-name: ""
-    prefix: ""
-    port: ""
-    config: ""
-    db-name: ""
-    username: ""
-    password: ""
-    path: ""
-    engine: ""
-    log-mode: ""
-    max-idle-conns: 10
-    max-open-conns: 100
-    singular: false
-    log-zap: false
-    disable: true
-email:
-  to: xxx@qq.com
-  from: xxx@163.com
-  host: smtp.163.com
-  secret: xxx
-  nickname: test
-  port: 465
-  is-ssl: true
 system:
   env: local
   db-type: pgsql
-  addr: 8888
-  use-mongo: false
-  use-redis: false
-timer:
-  spec: '@daily'
-  detail:
-    - tableName: sys_operation_records
-      compareField: created_at
-      interval: 2160h
-    - tableName: jwt_blacklists
-      compareField: created_at
-      interval: 168h
-  start: true
-  with_seconds: false
+  addr: 8080
+
 zap:
   level: debug
   prefix: '[github.com/alice52/bili-video-archive]'
-  format: console
-  director: log
+  format: json   # console
+  director: logs
   encode-level: LowercaseColorLevelEncoder
   stacktrace-key: stacktrace
   max-age: 0
   show-line: true
   log-in-console: true
+
+email:
+  to: 1252068782@qq.com
+  from: zzhang_xz@163.com
+  host: smtp.163.com
+  secret: ENC(Mxw6y2NKApKw9TsIPvbuL3hvuhrTOIrpFQXMxgxF8JzAUZI75Xuqb+jepoFkfXrB)
+  nickname: alice52-bilibi-archive
+  port: 465
+  is-ssl: true
+
+pgsql:
+  port: "5432"
+  config: ""
+  db-name: bili_archive
+  username: postgres
+  password: ENC(NQ8EfnPfisBxXD2mzKJfWy8+31l9ReU1phMh6FFIFWMeAlHoGfAsGwxfVV0rMUvI)
+  path: ENC(hnnvkY6WRd+Z0hseBdhUCX5y+mVVlXwx9TRVnzx9WC3qwQsRXaqVbyHs+KaBK8qU)
+  log-mode: error
+  max-idle-conns: 10
+  max-open-conns: 100
+  singular: false
+  log-zap: true
+  migration-path: file://./resource/migrations
+

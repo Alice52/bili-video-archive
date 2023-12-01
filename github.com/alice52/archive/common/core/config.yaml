@@ -15,3 +15,12 @@ zap:
   max-age: 0
   show-line: true
   log-in-console: true
+
+email:
+  to: 1252068782@qq.com
+  from: zzhang_xz@163.com
+  host: smtp.163.com
+  secret: ENC(VDPrFqEbvLCyMtQV4SuWXeNuyoGBZOsvBfx4vi/x2lYQIiRrLTwUwkOzboG+T+lu)
+  nickname: alice52-bilibi-archive
+  port: 465
+  is-ssl: true

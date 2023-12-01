@@ -29,3 +29,7 @@ func Zap() (logger *zap.Logger) {
 
 	return logger
 }
+
+func ZapWithLogstash() {
+	// todo
+}

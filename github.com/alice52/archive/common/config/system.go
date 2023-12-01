@@ -9,5 +9,4 @@ type System struct {
 	DbType string `mapstructure:"db-type" json:"db-type" yaml:"db-type"`
 
 	UseRedis bool `mapstructure:"use-redis" json:"use-redis" yaml:"use-redis"` // 使用redis
-	UseMongo bool `mapstructure:"use-mongo" json:"use-mongo" yaml:"use-mongo"` // 使用redis
 }

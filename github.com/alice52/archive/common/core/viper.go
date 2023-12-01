@@ -9,7 +9,6 @@ import (
 	jasyptv "github.com/alice52/jasypt-go/viper"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"os"
 )
 
 // Viper 优先级: 命令行 > 环境变量 > 默认值
@@ -51,7 +50,7 @@ func getConfigFile(path ...string) string {
 		config = ConfigDefaultFile
 	}
 
-	fmt.Printf("using viper config: %s", config)
+	fmt.Printf("using viper config: %s\n", config)
 
 	return config
 }
@@ -65,7 +64,7 @@ func unmarshalConfig(v *viper.Viper) {
 		jasyptPwd = constant.JasyptPwd
 	}
 
-	_ = os.Setenv(constant.JasyptKey, jasyptPwd)
+	// _ = os.Setenv(constant.JasyptKey, jasyptPwd)
 	if err := jasyptv.Unmarshal(v, jasypt.New(), &global.CONFIG); err != nil {
 		fmt.Println(err)
 	}

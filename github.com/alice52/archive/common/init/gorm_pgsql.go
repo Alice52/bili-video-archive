@@ -8,8 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// GormPgSql 初始化 Postgresql 数据库
-func GormPgSql() *gorm.DB {
+// GormPgSQL 初始化 Postgresql 数据库
+func GormPgSQL() *gorm.DB {
 	p := global.CONFIG.Pgsql
 	if p.Dbname == "" {
 		return nil
@@ -18,14 +18,14 @@ func GormPgSql() *gorm.DB {
 		DSN:                  p.Dsn(), // DSN data source name
 		PreferSimpleProtocol: false,
 	}
-	if db, err := gorm.Open(postgres.New(pgsqlConfig), internal.Gorm.Config(p.Prefix, p.Singular)); err != nil {
+	db, err := gorm.Open(postgres.New(pgsqlConfig), internal.Gorm.Config(p.Prefix, p.Singular))
+	if err != nil {
 		return nil
-	} else {
-		sqlDB, _ := db.DB()
-		sqlDB.SetMaxIdleConns(p.MaxIdleConns)
-		sqlDB.SetMaxOpenConns(p.MaxOpenConns)
-		return db
 	}
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxIdleConns(p.MaxIdleConns)
+	sqlDB.SetMaxOpenConns(p.MaxOpenConns)
+	return db
 }
 
 // GormPgSqlByConfig 初始化 Postgresql 数据库 通过参数
@@ -37,12 +37,13 @@ func GormPgSqlByConfig(p config.Pgsql) *gorm.DB {
 		DSN:                  p.Dsn(), // DSN data source name
 		PreferSimpleProtocol: false,
 	}
-	if db, err := gorm.Open(postgres.New(pgsqlConfig), internal.Gorm.Config(p.Prefix, p.Singular)); err != nil {
-		panic(err)
-	} else {
-		sqlDB, _ := db.DB()
-		sqlDB.SetMaxIdleConns(p.MaxIdleConns)
-		sqlDB.SetMaxOpenConns(p.MaxOpenConns)
-		return db
+
+	db, err := gorm.Open(postgres.New(pgsqlConfig), internal.Gorm.Config(p.Prefix, p.Singular))
+	if err != nil {
+		return nil
 	}
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxIdleConns(p.MaxIdleConns)
+	sqlDB.SetMaxOpenConns(p.MaxOpenConns)
+	return db
 }
