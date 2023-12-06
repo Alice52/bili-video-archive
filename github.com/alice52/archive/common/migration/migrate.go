@@ -14,7 +14,6 @@ import (
 
 // Initialize 初始化函数, 在项目启动时调用
 func Initialize(db *gorm.DB) {
-
 	mp := global.CONFIG.Pgsql.MigrationPath
 	if len(mp) == 0 {
 		return
