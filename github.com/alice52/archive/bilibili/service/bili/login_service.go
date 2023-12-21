@@ -12,9 +12,6 @@ import (
 	"os"
 )
 
-// LogonClient maintain logon status by scheduler job
-var LogonClient = new(BClient)
-
 const (
 	generateQrCodeUrl = "https://passport.bilibili.com/x/passport-login/web/qrcode/generate"
 	pollQrCodeUrl     = "https://passport.bilibili.com/x/passport-login/web/qrcode/poll"
@@ -35,15 +32,6 @@ var (
 	LoginExpired           = LoginStatus(86038)
 )
 
-func GetLogonClient() (*BClient, error) {
-	err := LogonClient.doLoginIfNecessary()
-	if err != nil {
-		return nil, err
-	}
-
-	return LogonClient, nil
-}
-
 func (client *BClient) doLoginIfNecessary() error {
 	if client.isLogin() {
 		return nil
@@ -63,17 +51,12 @@ func (client *BClient) doLoginIfNecessary() error {
 			}
 		case LoginExpired:
 			return fmt.Errorf("login qrcode expired")
-			//fmt.Println("login qrcode expired")
-			//err := client.doLoginIfNecessary()
-			//if err != nil {
-			//	return err
-			//}
 		default:
 			continue
 		}
 	}
 
-	return nil
+	return fmt.Errorf("no login exception")
 }
 
 // LoginWithQrCode writer is where the qrcode be written

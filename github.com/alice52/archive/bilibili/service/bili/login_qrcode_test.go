@@ -10,6 +10,9 @@ import (
 )
 
 func TestQrCodeImage(t *testing.T) {
+	defer func(fn string) {
+		os.Remove(fn)
+	}("qr.png")
 
 	err := qrcode.WriteFile("https://example.org", qrcode.Medium, 256, "qr.png")
 	if err != nil {
