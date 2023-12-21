@@ -10,9 +10,8 @@ import (
 	"github.com/jordan-wright/email"
 )
 
-func Email(To, subject string, body string) error {
-	to := strings.Split(To, ",")
-	return send(to, subject, body)
+func Email(to, subject string, body string, att ...string) error {
+	return send(strings.Split(to, ","), subject, body, att...)
 }
 
 func ErrorToEmail(subject string, body string) error {
@@ -28,7 +27,7 @@ func EmailTest(subject string, body string) error {
 	return send(to, subject, body)
 }
 
-func send(to []string, subject string, body string) error {
+func send(to []string, subject string, body string, attFileName ...string) error {
 	es := global.CONFIG.Email
 	from := es.From
 	nickname := es.Nickname
@@ -47,6 +46,14 @@ func send(to []string, subject string, body string) error {
 	e.To = to
 	e.Subject = subject
 	e.HTML = []byte(body)
+
+	for _, ap := range attFileName {
+		if _, err := e.AttachFile(ap); err != nil {
+			fmt.Println("Error attaching file:", err)
+			return err
+		}
+	}
+
 	var err error
 	hostAddr := fmt.Sprintf("%s:%d", host, port)
 	if isSSL {

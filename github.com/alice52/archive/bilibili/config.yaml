@@ -27,9 +27,9 @@ pgsql:
   port: "5432"
   config: ""
   db-name: bili_archive
-  username: postgres
-  password: ENC(NQ8EfnPfisBxXD2mzKJfWy8+31l9ReU1phMh6FFIFWMeAlHoGfAsGwxfVV0rMUvI)
-  path: ENC(hnnvkY6WRd+Z0hseBdhUCX5y+mVVlXwx9TRVnzx9WC3qwQsRXaqVbyHs+KaBK8qU)
+  username: zack
+  password: ENC(SPYUs39G6FShX82STfkMcXIPY+KwdXsg/+thsNSWj/+tJkQvVEI5MROZGJekMroH)
+  path: ENC(aVrzRiZluVu5iTsCgMppBa3AD52x8XZvoqthivnHxab9m9oVL1FUqrsBOF+gXdXy3kilyCu5vCeni818gFEZgg==)
   log-mode: error
   max-idle-conns: 10
   max-open-conns: 100

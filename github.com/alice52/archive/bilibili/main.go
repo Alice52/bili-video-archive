@@ -19,6 +19,4 @@ func main() {
 	global.DB = initialize.GormPgSQL()
 	migration.Initialize(global.DB)
 
-	// core.GenerateAndEmail()
-
 }

@@ -15,3 +15,8 @@ func (e *EmailService) SendEmail(to, subject, body string) (err error) {
 	err = util.Email(to, subject, body)
 	return err
 }
+
+func (e *EmailService) SendAttach(to, subject string, att ...string) (err error) {
+	err = util.Email(to, subject, "", att...)
+	return err
+}

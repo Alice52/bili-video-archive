@@ -40,8 +40,11 @@ func getConfigFile(path ...string) string {
 	}
 
 	// parse from cmd
-	flag.StringVar(&config, "c", "", "choose config file.")
-	flag.Parse()
+
+	if config == "" {
+		flag.StringVar(&config, "c", "", "choose config file.")
+		flag.Parse()
+	}
 
 	// parse from env: gin.mode
 
