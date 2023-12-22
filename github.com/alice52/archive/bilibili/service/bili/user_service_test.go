@@ -31,5 +31,5 @@ func TestClient_MySpaceInfo(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	t.Log(util.MustMarshal(info))
+	fmt.Println(util.MustMarshal(info))
 }
