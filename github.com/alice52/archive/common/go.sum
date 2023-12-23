@@ -42,6 +42,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migciow=
 github.com/alice52/jasypt-go v1.0.3 h1:9K2YjtYriqy0wMpOFSnBvDIOLs+4LlV5R9KdgE+mB/E=
 github.com/alice52/jasypt-go v1.0.3/go.mod h1:HVya1CYldkpZE7d/V4HRgT1NlsewWGozfPTU27ZYFHk=
+github.com/alice52/jasypt-go v1.0.4 h1:n0wpgboqHYDCVMmJ4RpoIY7AAOgFPop3kpWRyQhFBZ0=
+github.com/alice52/jasypt-go v1.0.4/go.mod h1:HVya1CYldkpZE7d/V4HRgT1NlsewWGozfPTU27ZYFHk=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/chzyer/logex v1.1.10/go.mod h1:+Ywpsq7O8HXn0nuIou7OrIPyXbp3wmkHB+jjWRnGsAI=
 github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5PlCu98SY8svDHJxuZscDgtXS6KTTbou5AhLI=

@@ -3,7 +3,7 @@ module github.com/alice52/archive/common
 go 1.20
 
 require (
-	github.com/alice52/jasypt-go v1.0.3
+	github.com/alice52/jasypt-go v1.0.4
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/golang-migrate/migrate/v4 v4.16.2
