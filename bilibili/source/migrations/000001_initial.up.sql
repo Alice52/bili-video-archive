@@ -1,16 +1,106 @@
-create table archived_video (
-    id bigserial primary key,
-    type varchar,
-    stream_url varchar,
-    title varchar,
-    tags varchar[],
-    bvid varchar,
-    author varchar,
-    status bool,
-    pan_url varchar,
-    created_at timestamptz default current_timestamp,
-    created_by varchar(128),
-    updated_at timestamptz default current_timestamp,
-    updated_by varchar(128),
-    deleted_at bool
-);
+create table archived_ups_tag
+(
+    id         varchar(64)   primary key comment 'tagid',
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+    name         varchar(64)  null comment 'name',
+    `count`      varchar(128) null comment 'count',
+    tip      varchar(128) null comment 'tip'
+) comment '关注的UP主分组';
+create table archived_ups
+(
+    id           bigint auto_increment  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+
+    tag_id         varchar(64)  null comment 'my group',
+    sign         varchar(2048)  null comment 'up desc',
+    uname      varchar(128) null comment 'up name',
+    mid      varchar(128) null comment 'up uid',
+    `level`      varchar(3) null comment 'up level',
+    `rank` varchar(30) null comment 'up rank',
+    following varchar(30) null comment 'up following',
+    follower      varchar(30) null comment 'up follower',
+        `view`      varchar(30) null comment 'up view',
+    likes      varchar(30) null comment 'up likes',
+    video      varchar(30) null comment 'up video count'
+)  comment '关注的UP';
+
+create table archived_fav_folders(
+    id           bigint auto_increment  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+
+
+    mid         varchar(64)  null comment 'bili uid',
+    fid         varchar(64)  null comment 'bili folder id',
+    media_count varchar(64) null comment 'media count',
+    title         varchar(64)  null comment 'title'
+) comment '收藏文件夹';
+create table archived_fav(
+    id           bigint auto_increment  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+
+    fid         varchar(64)  null comment 'bili folder',
+    vid         varchar(64)  null comment 'bili avid',
+    cover varchar(256)  null comment 'video cover',
+    duration bigint  null comment 'video duration',
+    fav_time bigint not null  comment 'video favor time',
+    intro   varchar(64)  null comment 'video intro',
+    title   varchar(64)  null comment 'video title',
+    type   varchar(64)  null comment 'video type',
+    season   varchar(64)  null comment 'video season',
+    upper_mid  json   null comment '{"mid": 173986740, "name": "这个月-"}',
+    cnt_info json null comment '{"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }'
+) comment '收藏视频';
+
+create table archived_coin(
+    id           bigint auto_increment  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+
+    fid         varchar(64)  null comment 'bili folder',
+    vid         varchar(64)  null comment 'bili avid',
+    cover varchar(256)  null comment 'video cover',
+    duration bigint  null comment 'video duration',
+    coin_time bigint not null  comment 'video favor time',
+    intro   varchar(64)  null comment 'video intro',
+    title   varchar(64)  null comment 'video title',
+    type   varchar(64)  null comment 'video type',
+    season   varchar(64)  null comment 'video season',
+    upper_mid  json   null comment '{"mid": 173986740, "name": "这个月-"}',
+    cnt_info json null comment '{"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }'
+) comment '投币视频';
+create table archived_like(
+    id           bigint auto_increment  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null,
+
+    fid         varchar(64)  null comment 'bili folder',
+    vid         varchar(64)  null comment 'bili avid',
+    cover varchar(256)  null comment 'video cover',
+    duration bigint  null comment 'video duration',
+    coin_time bigint not null  comment 'video favor time',
+    intro   varchar(64)  null comment 'video intro',
+    title   varchar(64)  null comment 'video title',
+    type   varchar(64)  null comment 'video type',
+    season   varchar(64)  null comment 'video season',
+    upper_mid  json   null comment '{"mid": 173986740, "name": "这个月-"}',
+    cnt_info json null comment '{"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }'
+) comment '点赞视频';
+
+create table archived_view_history(
+    id         bigint  primary key,
+    created_at   datetime(3)  null,
+    updated_at   datetime(3)  null,
+    deleted_at   datetime(3)  null
+
+
+) comment '浏览历史记录';
