@@ -1,8 +1,8 @@
-package bili
+package api
 
 import (
 	"encoding/json"
-	"github.com/alice52/archive/bilibili/errors"
+	"github.com/alice52/archive/bilibili/api/errs"
 	"io/ioutil"
 	"net/http"
 )
@@ -137,7 +137,7 @@ func (client *BClient) MySpaceInfo() (*MySpaceInfoResp, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.ErrUnexpectedStatusCode(resp.StatusCode)
+		return nil, errs.ErrUnexpectedStatusCode(resp.StatusCode)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -151,7 +151,7 @@ func (client *BClient) MySpaceInfo() (*MySpaceInfoResp, error) {
 	}
 
 	if mySpaceInfoResp.Code != 0 {
-		return nil, errors.StatusError{Code: mySpaceInfoResp.Code, Cause: mySpaceInfoResp.Message}
+		return nil, errs.StatusError{Code: mySpaceInfoResp.Code, Cause: mySpaceInfoResp.Message}
 	}
 
 	return mySpaceInfoResp, nil

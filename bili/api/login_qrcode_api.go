@@ -1,10 +1,10 @@
-package bili
+package api
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/alice52/archive/bilibili/errors"
-	"github.com/alice52/archive/bilibili/service/system"
+	"github.com/alice52/archive/bilibili/api/errs"
+	"github.com/alice52/archive/bilibili/service"
 	"github.com/alice52/archive/common/global"
 	"github.com/skip2/go-qrcode"
 	"io"
@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-var emailService = system.SystemService.EmailService
+var emailService = service.EmailService
 
 type GenerateQrCodeResp struct {
 	Code    int    `json:"code"`
@@ -49,7 +49,7 @@ func (client *BClient) GenerateQrcode() (*GenerateQrCodeResp, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.ErrUnexpectedStatusCode(resp.StatusCode)
+		return nil, errs.ErrUnexpectedStatusCode(resp.StatusCode)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -63,7 +63,7 @@ func (client *BClient) GenerateQrcode() (*GenerateQrCodeResp, error) {
 	}
 
 	if generateQrCodeResp.Code != 0 {
-		return nil, errors.StatusError{Code: generateQrCodeResp.Code, Cause: generateQrCodeResp.Message}
+		return nil, errs.StatusError{Code: generateQrCodeResp.Code, Cause: generateQrCodeResp.Message}
 	}
 	return generateQrCodeResp, nil
 }
@@ -81,7 +81,7 @@ func (client *BClient) PollQrcode(qrcode string) (*PollQrCodeResp, http.Header, 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, nil, errors.ErrUnexpectedStatusCode(resp.StatusCode)
+		return nil, nil, errs.ErrUnexpectedStatusCode(resp.StatusCode)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -95,7 +95,7 @@ func (client *BClient) PollQrcode(qrcode string) (*PollQrCodeResp, http.Header, 
 	}
 
 	if pollQrCodeResp.Code != 0 {
-		return nil, nil, errors.StatusError{Code: pollQrCodeResp.Code, Cause: pollQrCodeResp.Message}
+		return nil, nil, errs.StatusError{Code: pollQrCodeResp.Code, Cause: pollQrCodeResp.Message}
 	}
 	return pollQrCodeResp, resp.Header, nil
 }

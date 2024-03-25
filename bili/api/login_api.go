@@ -1,9 +1,9 @@
-package bili
+package api
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/alice52/archive/bilibili/errors"
+	"github.com/alice52/archive/bilibili/api/errs"
 	"github.com/alice52/archive/bilibili/util"
 	"github.com/skip2/go-qrcode"
 	"io"
@@ -137,7 +137,7 @@ func (client *BClient) NavInfo() (*NavInfoResp, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.ErrUnexpectedStatusCode(resp.StatusCode)
+		return nil, errs.ErrUnexpectedStatusCode(resp.StatusCode)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -151,7 +151,7 @@ func (client *BClient) NavInfo() (*NavInfoResp, error) {
 	}
 
 	if navInfoResp.Code != 0 {
-		return nil, errors.StatusError{Code: navInfoResp.Code, Cause: navInfoResp.Message}
+		return nil, errs.StatusError{Code: navInfoResp.Code, Cause: navInfoResp.Message}
 	}
 
 	return navInfoResp, nil

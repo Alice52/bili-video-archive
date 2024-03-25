@@ -1,10 +1,10 @@
-package bili
+package api
 
 import (
 	"fmt"
-	"github.com/alice52/archive/common/core"
 	"github.com/alice52/archive/common/global"
 	"github.com/skip2/go-qrcode"
+	"github.com/wordpress-plus/kit-logger/viperx"
 	"os"
 	"testing"
 )
@@ -21,7 +21,7 @@ func TestQrCodeImage(t *testing.T) {
 }
 
 func TestGenerateAndEmail(t *testing.T) {
-	global.VIPER = core.Viper("../../config.yaml")
+	global.VIPER = viperx.Viper(&global.CONFIG, "../../config.yaml")
 
 	err := GenerateAndEmail("zack", qrcode.Low, os.Stdout)
 	if err != nil {

@@ -1,4 +1,4 @@
-package bili
+package api
 
 import (
 	"io"
@@ -7,16 +7,20 @@ import (
 )
 
 // LogonClient maintain logon status by scheduler job
-var LogonClient = new(BClient)
+var LogonClient *BClient
+
+func init() {
+	LogonClient, _ = GetLogonClient()
+}
 
 type BClient struct {
 	HttpClient *http.Client
 	cookie     []string
 }
 
+// Deprecated: use GetLogonClient
 func GetLogonClientV2() (*BClient, error) {
-	err := LogonClient.doLoginIfNecessary()
-	if err != nil {
+	if err := LogonClient.doLoginIfNecessary(); err != nil {
 		return nil, err
 	}
 
@@ -24,8 +28,7 @@ func GetLogonClientV2() (*BClient, error) {
 }
 
 func GetLogonClient() (*BClient, error) {
-	err := LogonClient.doLoginIfNecessary()
-	if err == nil {
+	if err := LogonClient.doLoginIfNecessary(); err == nil {
 		return LogonClient, nil
 	}
 

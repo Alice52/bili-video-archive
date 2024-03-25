@@ -8,9 +8,9 @@ on:
     branches:
       - master
     paths:
-      - '/bilibili/**'
-      - '/common/**'
-      - '/netdisc/**'
+      - 'bili/**'
+      - 'common/**'
+      - 'netdisc/**'
       - '.github/workflows/build-archive.yml'
   pull_request:
 
@@ -50,6 +50,6 @@ jobs:
 
       - name: Build Archive Of Bilibili
         run: |
-          MODULE_NAME=bilibili
+          MODULE_NAME=bili
           cd $PROJECT_HOME/$MODULE_NAME
           go list -f '{{.Dir}}/...' -m | xargs go build #-o bin/

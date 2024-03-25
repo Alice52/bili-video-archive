@@ -1,10 +1,10 @@
-package bili
+package api
 
 import (
 	"fmt"
 	"github.com/alice52/archive/bilibili/util"
-	"github.com/alice52/archive/common/core"
 	"github.com/alice52/archive/common/global"
+	"github.com/wordpress-plus/kit-logger/viperx"
 	"testing"
 )
 
@@ -18,7 +18,7 @@ func TestClient_IsLogin(t *testing.T) {
 }
 
 func TestClient_MySpaceInfo(t *testing.T) {
-	global.VIPER = core.Viper("../../config.yaml")
+	global.VIPER = viperx.Viper(&global.CONFIG, "../../config.yaml")
 
 	client, err := GetLogonClient()
 	if err != nil {
