@@ -35,5 +35,5 @@ pgsql:
   max-open-conns: 100
   singular: false
   log-zap: true
-  migration-path: file://./resource/migrations
+  migration-path: file://./source/migrations
 

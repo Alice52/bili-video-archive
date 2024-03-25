@@ -8,7 +8,9 @@ on:
     branches:
       - master
     paths:
-      - '**/github.com/alice52/archive/**'
+      - '/bilibili/**'
+      - '/common/**'
+      - '/netdisc/**'
       - '.github/workflows/build-archive.yml'
   pull_request:
 
@@ -22,11 +24,9 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest'] # "macOS-latest"
-        go: ['1.18.x', '1.19.x', '1.20.x', '1.21.x']
+        go: ['1.19.x', '1.20.x', '1.21.x']
     runs-on: ${{ matrix.os }}
     if: "!contains(github.event.head_commit.message, 'ci skip')"
-    env:
-      PROJECT_PREFIX: github.com/alice52/archive
     steps:
       - name: Export Global Var
         run: |
@@ -39,19 +39,17 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      # - name: golangci-lint
-      #   uses: golangci/golangci-lint-action@v3
-      #   with:
-      #     version: v1.54
-      - name: Install xargs
-        run: |
-          sudo apt-get update && sudo apt-get install -y findutils
-          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ env.GOPATH }}/pkg/mod
+          key: go-${{ runner.os }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-${{ runner.os }}-
 
-      - name: Build Bilibili Archive
+      - name: Build Archive Of Bilibili
         run: |
-          cd $PROJECT_HOME/$PROJECT_PREFIX/
-          #go list -f '{{.Dir}}/...' -m | xargs golangci-lint run
-          go list -f '{{.Dir}}/...' -m | xargs go build -o bin/
-        env:
-          PATH: /usr/local/bin:$PATH
+          MODULE_NAME=bilibili
+          cd $PROJECT_HOME/$MODULE_NAME
+          go list -f '{{.Dir}}/...' -m | xargs go build #-o bin/
