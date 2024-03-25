@@ -10,7 +10,7 @@ require (
 	gorm.io/driver/mysql v1.5.6
 	gorm.io/gen v0.3.25
 	gorm.io/gorm v1.25.8
-	gorm.io/plugin/dbresolver v1.5.0
+	gorm.io/plugin/dbresolver v1.5.1
 )
 
 require (
