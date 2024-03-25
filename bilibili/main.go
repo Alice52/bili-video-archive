@@ -5,6 +5,7 @@ import (
 	"github.com/alice52/archive/common/global"
 	initialize "github.com/alice52/archive/common/init"
 	"github.com/alice52/archive/common/migration"
+	"github.com/wordpress-plus/kit-logger/zapx"
 )
 
 func main() {
@@ -13,10 +14,9 @@ func main() {
 	global.VIPER = core.Viper() // 初始化Viper
 
 	// init zap
-	global.LOG = core.Zap()
+	global.LOG = zapx.Zap(global.CONFIG.Zap)
 
 	// init db and do migration
 	global.DB = initialize.GormPgSQL()
 	migration.Initialize(global.DB)
-
 }
