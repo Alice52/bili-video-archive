@@ -5,6 +5,8 @@
 package model
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -13,9 +15,9 @@ const TableNameArchivedLike = "archived_like"
 // ArchivedLike 点赞视频
 type ArchivedLike struct {
 	ID         int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
-	CreateTime *int64         `gorm:"column:create_time;type:bigint unsigned;autoCreateTime" json:"create_time"`
-	UpdateTime *int64         `gorm:"column:update_time;type:bigint unsigned;autoUpdateTime" json:"update_time"`
-	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:bigint" json:"delete_time"`
+	CreateTime *time.Time     `gorm:"column:create_time;type:datetime(3);autoCreateTime" json:"create_time"`
+	UpdateTime *time.Time     `gorm:"column:update_time;type:datetime(3);autoUpdateTime" json:"update_time"`
+	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:datetime(3)" json:"delete_time"`
 	Fid        *string        `gorm:"column:fid;type:varchar(64);comment:bili folder" json:"fid"`                                                                                                              // bili folder
 	Vid        *string        `gorm:"column:vid;type:varchar(64);comment:bili avid" json:"vid"`                                                                                                                // bili avid
 	Cover      *string        `gorm:"column:cover;type:varchar(256);comment:video cover" json:"cover"`                                                                                                         // video cover

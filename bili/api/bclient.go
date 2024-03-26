@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	c "github.com/alice52/archive/bilibili/api/common"
-	"github.com/alice52/archive/bilibili/api/errs"
-	m "github.com/alice52/archive/bilibili/api/model"
+	c "github.com/alice52/archive/bili/api/common"
+	"github.com/alice52/archive/bili/api/errs"
+	m "github.com/alice52/archive/bili/api/model"
 	"github.com/alice52/archive/common/global"
 	"io"
 	"io/ioutil"
@@ -15,8 +15,8 @@ import (
 )
 
 // LogonClient maintain logon status by scheduler job
-var LogonClient *BClient = new(BClient)
-var logonFunc func() *BClient = MustLogonClient
+var LogonClient = new(BClient)
+var logonFunc = MustLogonClient
 
 func init() {
 	LogonClient, _ = GetLogonClient()

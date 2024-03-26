@@ -13,3 +13,8 @@ var (
 	LOG    *zap.Logger
 	DB     *gorm.DB
 )
+
+const (
+	DbMysql = "mysql"
+	DbPgsql = "pgsql"
+)

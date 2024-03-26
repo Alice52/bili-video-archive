@@ -3,11 +3,11 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	m "github.com/alice52/archive/bilibili/api/model"
+	m "github.com/alice52/archive/bili/api/model"
 )
 
 var (
-	tagUppers = "https://api.bilibili.com/x/relation/tag?tagid=%s" // &pn=%d
+	tagUppers = "https://api.bilibili.com/x/relation/tag?tagid=%d" // &pn=%d
 )
 
 // region response model
@@ -68,7 +68,7 @@ type Label struct {
 
 // UppersOfTag 获取当前登录用户当前分组下的UP主列表
 // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/user/relation.md#%E6%9F%A5%E8%AF%A2%E5%85%B3%E6%B3%A8%E5%88%86%E7%BB%84%E6%98%8E%E7%BB%86
-func (client *BClient) UppersOfTag(tagid string) (*m.BPResp[UpperInfo], error) {
+func (client *BClient) UppersOfTag(tagid int64) (*m.BPResp[UpperInfo], error) {
 	uppers := &m.BPResp[UpperInfo]{}
 	if ss, err := client.GetAllP(fmt.Sprintf(tagUppers, tagid)); err != nil {
 		return nil, err

@@ -24,6 +24,7 @@ var (
 	ArchivedUp          *archivedUp
 	ArchivedUpsTag      *archivedUpsTag
 	ArchivedViewHistory *archivedViewHistory
+	SchemaMigration     *schemaMigration
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
@@ -35,6 +36,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	ArchivedUp = &Q.ArchivedUp
 	ArchivedUpsTag = &Q.ArchivedUpsTag
 	ArchivedViewHistory = &Q.ArchivedViewHistory
+	SchemaMigration = &Q.SchemaMigration
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
@@ -47,6 +49,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		ArchivedUp:          newArchivedUp(db, opts...),
 		ArchivedUpsTag:      newArchivedUpsTag(db, opts...),
 		ArchivedViewHistory: newArchivedViewHistory(db, opts...),
+		SchemaMigration:     newSchemaMigration(db, opts...),
 	}
 }
 
@@ -60,6 +63,7 @@ type Query struct {
 	ArchivedUp          archivedUp
 	ArchivedUpsTag      archivedUpsTag
 	ArchivedViewHistory archivedViewHistory
+	SchemaMigration     schemaMigration
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -74,6 +78,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		ArchivedUp:          q.ArchivedUp.clone(db),
 		ArchivedUpsTag:      q.ArchivedUpsTag.clone(db),
 		ArchivedViewHistory: q.ArchivedViewHistory.clone(db),
+		SchemaMigration:     q.SchemaMigration.clone(db),
 	}
 }
 
@@ -95,6 +100,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		ArchivedUp:          q.ArchivedUp.replaceDB(db),
 		ArchivedUpsTag:      q.ArchivedUpsTag.replaceDB(db),
 		ArchivedViewHistory: q.ArchivedViewHistory.replaceDB(db),
+		SchemaMigration:     q.SchemaMigration.replaceDB(db),
 	}
 }
 
@@ -106,6 +112,7 @@ type queryCtx struct {
 	ArchivedUp          IArchivedUpDo
 	ArchivedUpsTag      IArchivedUpsTagDo
 	ArchivedViewHistory IArchivedViewHistoryDo
+	SchemaMigration     ISchemaMigrationDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -117,6 +124,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		ArchivedUp:          q.ArchivedUp.WithContext(ctx),
 		ArchivedUpsTag:      q.ArchivedUpsTag.WithContext(ctx),
 		ArchivedViewHistory: q.ArchivedViewHistory.WithContext(ctx),
+		SchemaMigration:     q.SchemaMigration.WithContext(ctx),
 	}
 }
 

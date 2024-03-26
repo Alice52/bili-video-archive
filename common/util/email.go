@@ -63,3 +63,11 @@ func send(to []string, subject string, body string, attFileName ...string) error
 	}
 	return err
 }
+
+func SendEmail(to, subject, body string) (err error) {
+	return Email(to, subject, body)
+}
+
+func SendAttach(to, subject string, att ...string) (err error) {
+	return Email(to, subject, "", att...)
+}

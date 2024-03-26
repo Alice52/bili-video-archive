@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/alice52/archive/bilibili/api/errs"
+	"github.com/alice52/archive/bili/api/errs"
 	"io/ioutil"
 	"net/http"
 )

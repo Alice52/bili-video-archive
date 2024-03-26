@@ -4,6 +4,7 @@ import (
 	"github.com/alice52/archive/common/config"
 	"github.com/alice52/archive/common/global"
 	"github.com/alice52/archive/common/init/internal"
+	"github.com/alice52/archive/common/migration"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -25,6 +26,7 @@ func GormPgSQL() *gorm.DB {
 	sqlDB, _ := db.DB()
 	sqlDB.SetMaxIdleConns(p.MaxIdleConns)
 	sqlDB.SetMaxOpenConns(p.MaxOpenConns)
+	migration.InitializePgsql(db)
 	return db
 }
 

@@ -1,11 +1,13 @@
 package service
 
 type ServiceGroup struct {
-	EmailServiceIn
+	UserUpperTagServiceIn
+	UserUpperServiceIn
 }
 
 var ServiceGroupApp = new(ServiceGroup)
 
 var (
-	EmailService = ServiceGroupApp.EmailServiceIn
+	UserUpperTagService = ServiceGroupApp.UserUpperTagServiceIn
+	UserUpperService    = ServiceGroupApp.UserUpperServiceIn
 )

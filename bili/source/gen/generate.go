@@ -49,10 +49,10 @@ func main() {
 	g.WithDataTypeMap(dataMap)
 
 	autoUpdateTimeField := gen.FieldGORMTag("update_time", func(tag field.GormTag) field.GormTag {
-		return map[string][]string{"column": {"update_time"}, "type": {"bigint unsigned"}, "autoUpdateTime": {}}
+		return map[string][]string{"column": {"update_time"}, "type": {"datetime(3)"}, "autoUpdateTime": {}}
 	})
 	autoCreateTimeField := gen.FieldGORMTag("create_time", func(tag field.GormTag) field.GormTag {
-		return map[string][]string{"column": {"create_time"}, "type": {"bigint unsigned"}, "autoCreateTime": {}}
+		return map[string][]string{"column": {"create_time"}, "type": {"datetime(3)"}, "autoCreateTime": {}}
 	})
 	softDeleteField := gen.FieldType("delete_time", "gorm.DeletedAt")
 	fieldOpts := []gen.ModelOpt{autoCreateTimeField, autoUpdateTimeField, softDeleteField}
@@ -68,7 +68,7 @@ func main() {
 		append(
 			fieldOpts,
 			gen.FieldRelate(field.HasOne, "UpTag", UpTag,
-				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"id"}}}),
+				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"tag_id"}}}),
 		)...,
 	)
 

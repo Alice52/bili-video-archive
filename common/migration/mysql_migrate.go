@@ -7,33 +7,30 @@ import (
 	"github.com/alice52/archive/common/global"
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"gorm.io/gorm"
 )
 
-// Initialize 初始化函数, 在项目启动时调用
-func Initialize(db *gorm.DB) {
-	mp := global.CONFIG.Pgsql.MigrationPath
+// InitializeMysql 初始化函数, 在项目启动时调用
+func InitializeMysql(db *gorm.DB) {
+	mp := global.CONFIG.Mysql.MigrationPath
+
 	if len(mp) == 0 {
 		return
 	}
 
-	s, err := db.DB()
-	if err != nil {
+	if s, err := db.DB(); err != nil {
 		panic(err)
-	}
-
-	// 执行数据库迁移
-	if err := MigrateDB(s, mp); err != nil {
+	} else if err := MigrateMysql(s, mp); err != nil { // 执行数据库迁移
 		panic(err)
 	}
 }
 
-// MigrateDB 执行数据库迁移
-func MigrateDB(db *sql.DB, mp string) error {
-	// 创建迁移实例
-	driver, err := postgres.WithInstance(db, &postgres.Config{})
+// MigrateMysql 执行数据库迁移
+func MigrateMysql(db *sql.DB, mp string) error {
+	// Create migration instance
+	driver, err := mysql.WithInstance(db, &mysql.Config{})
 	if err != nil {
 		return err
 	}
@@ -44,12 +41,12 @@ func MigrateDB(db *sql.DB, mp string) error {
 		}
 	}(driver)
 
-	m, err := migrate.NewWithDatabaseInstance(mp, "postgres", driver)
+	m, err := migrate.NewWithDatabaseInstance(mp, "mysql", driver)
 	if err != nil {
 		return err
 	}
 
-	// 执行迁移
+	// Perform migration
 	err = m.Up()
 	if err != nil && !errors.Is(err, migrate.ErrNoChange) {
 		return err

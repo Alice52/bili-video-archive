@@ -1,7 +1,7 @@
 package api
 
 import (
-	m "github.com/alice52/archive/bilibili/api/model"
+	m "github.com/alice52/archive/bili/api/model"
 )
 
 var (

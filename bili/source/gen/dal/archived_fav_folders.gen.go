@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedFavFolder(db *gorm.DB, opts ...gen.DOOption) archivedFavFolder {
@@ -28,8 +28,8 @@ func newArchivedFavFolder(db *gorm.DB, opts ...gen.DOOption) archivedFavFolder {
 	tableName := _archivedFavFolder.archivedFavFolderDo.TableName()
 	_archivedFavFolder.ALL = field.NewAsterisk(tableName)
 	_archivedFavFolder.Fid = field.NewString(tableName, "fid")
-	_archivedFavFolder.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedFavFolder.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedFavFolder.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedFavFolder.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedFavFolder.DeleteTime = field.NewField(tableName, "delete_time")
 	_archivedFavFolder.Mid = field.NewString(tableName, "mid")
 	_archivedFavFolder.MediaCount = field.NewString(tableName, "media_count")
@@ -46,8 +46,8 @@ type archivedFavFolder struct {
 
 	ALL        field.Asterisk
 	Fid        field.String // bili folder id
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
 	Mid        field.String // bili uid
 	MediaCount field.String // media count
@@ -69,8 +69,8 @@ func (a archivedFavFolder) As(alias string) *archivedFavFolder {
 func (a *archivedFavFolder) updateTableName(table string) *archivedFavFolder {
 	a.ALL = field.NewAsterisk(table)
 	a.Fid = field.NewString(table, "fid")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
 	a.Mid = field.NewString(table, "mid")
 	a.MediaCount = field.NewString(table, "media_count")

@@ -3,17 +3,15 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/alice52/archive/bilibili/api/errs"
-	"github.com/alice52/archive/bilibili/service"
+	"github.com/alice52/archive/bili/api/errs"
 	"github.com/alice52/archive/common/global"
+	"github.com/alice52/archive/common/util"
 	"github.com/skip2/go-qrcode"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
 )
-
-var emailService = service.EmailService
 
 type GenerateQrCodeResp struct {
 	Code    int    `json:"code"`
@@ -119,7 +117,7 @@ func GenerateAndEmail(content string, level qrcode.RecoveryLevel, writer io.Writ
 			return
 		}
 	}(image)
-	err = emailService.SendAttach(global.CONFIG.Email.To, "Login QrCode", image)
+	err = util.SendAttach(global.CONFIG.Email.To, "Login QrCode", image)
 	if err != nil {
 		return err
 	}

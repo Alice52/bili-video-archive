@@ -2,12 +2,12 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/alice52/archive/bilibili/api/errs"
-	"github.com/alice52/archive/bilibili/api/model"
+	"github.com/alice52/archive/bili/api/errs"
+	m "github.com/alice52/archive/bili/api/model"
 )
 
 var (
-	upperTagUrl = "https://api.bilibili.com/x/relation/tags"
+	upperTagUrl = "https://api.bilibili.com/x/relation/tags?"
 )
 
 //type UpperTag struct {

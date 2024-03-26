@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedUp(db *gorm.DB, opts ...gen.DOOption) archivedUp {
@@ -27,14 +27,13 @@ func newArchivedUp(db *gorm.DB, opts ...gen.DOOption) archivedUp {
 
 	tableName := _archivedUp.archivedUpDo.TableName()
 	_archivedUp.ALL = field.NewAsterisk(tableName)
-	_archivedUp.ID = field.NewInt64(tableName, "id")
-	_archivedUp.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedUp.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedUp.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedUp.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedUp.DeleteTime = field.NewField(tableName, "delete_time")
-	_archivedUp.TagID = field.NewString(tableName, "tag_id")
+	_archivedUp.TagID = field.NewInt64(tableName, "tag_id")
 	_archivedUp.Sign = field.NewString(tableName, "sign")
 	_archivedUp.Uname = field.NewString(tableName, "uname")
-	_archivedUp.Mid = field.NewString(tableName, "mid")
+	_archivedUp.Mid = field.NewInt64(tableName, "mid")
 	_archivedUp.Level = field.NewString(tableName, "level")
 	_archivedUp.Rank = field.NewString(tableName, "rank")
 	_archivedUp.Following = field.NewString(tableName, "following")
@@ -58,14 +57,13 @@ type archivedUp struct {
 	archivedUpDo
 
 	ALL        field.Asterisk
-	ID         field.Int64
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
-	TagID      field.String // my group
+	TagID      field.Int64  // my group
 	Sign       field.String // up desc
 	Uname      field.String // up name
-	Mid        field.String // up uid
+	Mid        field.Int64  // up uid
 	Level      field.String // up level
 	Rank       field.String // up rank
 	Following  field.String // up following
@@ -90,14 +88,13 @@ func (a archivedUp) As(alias string) *archivedUp {
 
 func (a *archivedUp) updateTableName(table string) *archivedUp {
 	a.ALL = field.NewAsterisk(table)
-	a.ID = field.NewInt64(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
-	a.TagID = field.NewString(table, "tag_id")
+	a.TagID = field.NewInt64(table, "tag_id")
 	a.Sign = field.NewString(table, "sign")
 	a.Uname = field.NewString(table, "uname")
-	a.Mid = field.NewString(table, "mid")
+	a.Mid = field.NewInt64(table, "mid")
 	a.Level = field.NewString(table, "level")
 	a.Rank = field.NewString(table, "rank")
 	a.Following = field.NewString(table, "following")
@@ -121,8 +118,7 @@ func (a *archivedUp) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *archivedUp) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 16)
-	a.fieldMap["id"] = a.ID
+	a.fieldMap = make(map[string]field.Expr, 15)
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime

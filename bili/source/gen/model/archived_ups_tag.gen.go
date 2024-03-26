@@ -5,6 +5,8 @@
 package model
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -12,13 +14,13 @@ const TableNameArchivedUpsTag = "archived_ups_tag"
 
 // ArchivedUpsTag 关注的UP主分组
 type ArchivedUpsTag struct {
-	ID         string         `gorm:"column:id;type:varchar(64);primaryKey;comment:tagid" json:"id"` // tagid
-	CreateTime *int64         `gorm:"column:create_time;type:bigint unsigned;autoCreateTime" json:"create_time"`
-	UpdateTime *int64         `gorm:"column:update_time;type:bigint unsigned;autoUpdateTime" json:"update_time"`
-	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:bigint" json:"delete_time"`
-	Name       *string        `gorm:"column:name;type:varchar(64);comment:name" json:"name"`     // name
-	Count_     *string        `gorm:"column:count;type:varchar(128);comment:count" json:"count"` // count
-	Tip        *string        `gorm:"column:tip;type:varchar(128);comment:tip" json:"tip"`       // tip
+	TagID      int64          `gorm:"column:tag_id;type:bigint;primaryKey;comment:tagid" json:"tag_id"` // tagid
+	CreateTime *time.Time     `gorm:"column:create_time;type:datetime(3);autoCreateTime" json:"create_time"`
+	UpdateTime *time.Time     `gorm:"column:update_time;type:datetime(3);autoUpdateTime" json:"update_time"`
+	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:datetime(3)" json:"delete_time"`
+	Name       *string        `gorm:"column:name;type:varchar(64);comment:name" json:"name"` // name
+	Count_     *int64         `gorm:"column:count;type:bigint;comment:count" json:"count"`   // count
+	Tip        *string        `gorm:"column:tip;type:varchar(128);comment:tip" json:"tip"`   // tip
 }
 
 // TableName ArchivedUpsTag's table name

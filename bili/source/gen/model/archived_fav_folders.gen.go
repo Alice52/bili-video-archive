@@ -5,6 +5,8 @@
 package model
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -13,9 +15,9 @@ const TableNameArchivedFavFolder = "archived_fav_folders"
 // ArchivedFavFolder 收藏文件夹
 type ArchivedFavFolder struct {
 	Fid        string         `gorm:"column:fid;type:varchar(64);primaryKey;comment:bili folder id" json:"fid"` // bili folder id
-	CreateTime *int64         `gorm:"column:create_time;type:bigint unsigned;autoCreateTime" json:"create_time"`
-	UpdateTime *int64         `gorm:"column:update_time;type:bigint unsigned;autoUpdateTime" json:"update_time"`
-	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:bigint" json:"delete_time"`
+	CreateTime *time.Time     `gorm:"column:create_time;type:datetime(3);autoCreateTime" json:"create_time"`
+	UpdateTime *time.Time     `gorm:"column:update_time;type:datetime(3);autoUpdateTime" json:"update_time"`
+	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:datetime(3)" json:"delete_time"`
 	Mid        *string        `gorm:"column:mid;type:varchar(64);comment:bili uid" json:"mid"`                    // bili uid
 	MediaCount *string        `gorm:"column:media_count;type:varchar(64);comment:media count" json:"media_count"` // media count
 	Title      *string        `gorm:"column:title;type:varchar(64);comment:title" json:"title"`                   // title

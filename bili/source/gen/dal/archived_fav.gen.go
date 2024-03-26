@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedFav(db *gorm.DB, opts ...gen.DOOption) archivedFav {
@@ -28,8 +28,8 @@ func newArchivedFav(db *gorm.DB, opts ...gen.DOOption) archivedFav {
 	tableName := _archivedFav.archivedFavDo.TableName()
 	_archivedFav.ALL = field.NewAsterisk(tableName)
 	_archivedFav.ID = field.NewInt64(tableName, "id")
-	_archivedFav.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedFav.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedFav.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedFav.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedFav.DeleteTime = field.NewField(tableName, "delete_time")
 	_archivedFav.Fid = field.NewString(tableName, "fid")
 	_archivedFav.Vid = field.NewString(tableName, "vid")
@@ -59,8 +59,8 @@ type archivedFav struct {
 
 	ALL        field.Asterisk
 	ID         field.Int64
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
 	Fid        field.String // bili folder
 	Vid        field.String // bili avid
@@ -91,8 +91,8 @@ func (a archivedFav) As(alias string) *archivedFav {
 func (a *archivedFav) updateTableName(table string) *archivedFav {
 	a.ALL = field.NewAsterisk(table)
 	a.ID = field.NewInt64(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
 	a.Fid = field.NewString(table, "fid")
 	a.Vid = field.NewString(table, "vid")

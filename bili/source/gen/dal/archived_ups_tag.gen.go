@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedUpsTag(db *gorm.DB, opts ...gen.DOOption) archivedUpsTag {
@@ -27,12 +27,12 @@ func newArchivedUpsTag(db *gorm.DB, opts ...gen.DOOption) archivedUpsTag {
 
 	tableName := _archivedUpsTag.archivedUpsTagDo.TableName()
 	_archivedUpsTag.ALL = field.NewAsterisk(tableName)
-	_archivedUpsTag.ID = field.NewString(tableName, "id")
-	_archivedUpsTag.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedUpsTag.UpdateTime = field.NewInt64(tableName, "update_time")
-	_archivedUpsTag.DeleteTime = field.NewInt64(tableName, "delete_time")
+	_archivedUpsTag.TagID = field.NewInt64(tableName, "tag_id")
+	_archivedUpsTag.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedUpsTag.UpdateTime = field.NewTime(tableName, "update_time")
+	_archivedUpsTag.DeleteTime = field.NewTime(tableName, "delete_time")
 	_archivedUpsTag.Name = field.NewString(tableName, "name")
-	_archivedUpsTag.Count_ = field.NewString(tableName, "count")
+	_archivedUpsTag.Count_ = field.NewInt64(tableName, "count")
 	_archivedUpsTag.Tip = field.NewString(tableName, "tip")
 
 	_archivedUpsTag.fillFieldMap()
@@ -45,12 +45,12 @@ type archivedUpsTag struct {
 	archivedUpsTagDo
 
 	ALL        field.Asterisk
-	ID         field.String // tagid
-	CreateTime field.Int64
-	UpdateTime field.Int64
-	DeleteTime field.Int64
+	TagID      field.Int64 // tagid
+	CreateTime field.Time
+	UpdateTime field.Time
+	DeleteTime field.Time
 	Name       field.String // name
-	Count_     field.String // count
+	Count_     field.Int64  // count
 	Tip        field.String // tip
 
 	fieldMap map[string]field.Expr
@@ -68,12 +68,12 @@ func (a archivedUpsTag) As(alias string) *archivedUpsTag {
 
 func (a *archivedUpsTag) updateTableName(table string) *archivedUpsTag {
 	a.ALL = field.NewAsterisk(table)
-	a.ID = field.NewString(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
-	a.DeleteTime = field.NewInt64(table, "delete_time")
+	a.TagID = field.NewInt64(table, "tag_id")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
+	a.DeleteTime = field.NewTime(table, "delete_time")
 	a.Name = field.NewString(table, "name")
-	a.Count_ = field.NewString(table, "count")
+	a.Count_ = field.NewInt64(table, "count")
 	a.Tip = field.NewString(table, "tip")
 
 	a.fillFieldMap()
@@ -92,7 +92,7 @@ func (a *archivedUpsTag) GetFieldByName(fieldName string) (field.OrderExpr, bool
 
 func (a *archivedUpsTag) fillFieldMap() {
 	a.fieldMap = make(map[string]field.Expr, 7)
-	a.fieldMap["id"] = a.ID
+	a.fieldMap["tag_id"] = a.TagID
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime

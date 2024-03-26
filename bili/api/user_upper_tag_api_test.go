@@ -2,7 +2,7 @@ package api
 
 import (
 	"fmt"
-	"github.com/alice52/archive/bilibili/util"
+	"github.com/alice52/archive/bili/util"
 	"testing"
 )
 

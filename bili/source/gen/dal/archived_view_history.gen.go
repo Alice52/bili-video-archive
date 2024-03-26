@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedViewHistory(db *gorm.DB, opts ...gen.DOOption) archivedViewHistory {
@@ -28,8 +28,8 @@ func newArchivedViewHistory(db *gorm.DB, opts ...gen.DOOption) archivedViewHisto
 	tableName := _archivedViewHistory.archivedViewHistoryDo.TableName()
 	_archivedViewHistory.ALL = field.NewAsterisk(tableName)
 	_archivedViewHistory.ID = field.NewInt64(tableName, "id")
-	_archivedViewHistory.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedViewHistory.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedViewHistory.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedViewHistory.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedViewHistory.DeleteTime = field.NewField(tableName, "delete_time")
 
 	_archivedViewHistory.fillFieldMap()
@@ -43,8 +43,8 @@ type archivedViewHistory struct {
 
 	ALL        field.Asterisk
 	ID         field.Int64
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
 
 	fieldMap map[string]field.Expr
@@ -63,8 +63,8 @@ func (a archivedViewHistory) As(alias string) *archivedViewHistory {
 func (a *archivedViewHistory) updateTableName(table string) *archivedViewHistory {
 	a.ALL = field.NewAsterisk(table)
 	a.ID = field.NewInt64(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
 
 	a.fillFieldMap()

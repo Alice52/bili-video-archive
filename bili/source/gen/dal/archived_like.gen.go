@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedLike(db *gorm.DB, opts ...gen.DOOption) archivedLike {
@@ -28,8 +28,8 @@ func newArchivedLike(db *gorm.DB, opts ...gen.DOOption) archivedLike {
 	tableName := _archivedLike.archivedLikeDo.TableName()
 	_archivedLike.ALL = field.NewAsterisk(tableName)
 	_archivedLike.ID = field.NewInt64(tableName, "id")
-	_archivedLike.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedLike.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedLike.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedLike.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedLike.DeleteTime = field.NewField(tableName, "delete_time")
 	_archivedLike.Fid = field.NewString(tableName, "fid")
 	_archivedLike.Vid = field.NewString(tableName, "vid")
@@ -54,8 +54,8 @@ type archivedLike struct {
 
 	ALL        field.Asterisk
 	ID         field.Int64
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
 	Fid        field.String // bili folder
 	Vid        field.String // bili avid
@@ -85,8 +85,8 @@ func (a archivedLike) As(alias string) *archivedLike {
 func (a *archivedLike) updateTableName(table string) *archivedLike {
 	a.ALL = field.NewAsterisk(table)
 	a.ID = field.NewInt64(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
 	a.Fid = field.NewString(table, "fid")
 	a.Vid = field.NewString(table, "vid")

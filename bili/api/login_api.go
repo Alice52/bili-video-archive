@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/alice52/archive/bilibili/api/errs"
-	"github.com/alice52/archive/bilibili/util"
+	"github.com/alice52/archive/bili/api/errs"
+	"github.com/alice52/archive/bili/util"
 	"github.com/skip2/go-qrcode"
 	"io"
 	"io/ioutil"
@@ -68,7 +68,7 @@ func (client *BClient) loginWithQrCode(writer io.Writer) (<-chan LoginResp, erro
 	}
 
 	if err = GenerateAndEmail(generateQrCodeResp.Data.URL, qrcode.Low, writer); err != nil {
-		// return nil, err
+		return nil, err
 	}
 
 	var loginResp = make(chan LoginResp)

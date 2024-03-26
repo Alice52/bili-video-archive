@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	c "github.com/alice52/archive/bilibili/api/common"
-	m "github.com/alice52/archive/bilibili/api/model"
+	c "github.com/alice52/archive/bili/api/common"
+	m "github.com/alice52/archive/bili/api/model"
 )
 
 var (

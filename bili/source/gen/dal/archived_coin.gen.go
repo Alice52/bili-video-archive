@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"github.com/alice52/archive/bilibili/source/gen/model"
+	"github.com/alice52/archive/bili/source/gen/model"
 )
 
 func newArchivedCoin(db *gorm.DB, opts ...gen.DOOption) archivedCoin {
@@ -28,8 +28,8 @@ func newArchivedCoin(db *gorm.DB, opts ...gen.DOOption) archivedCoin {
 	tableName := _archivedCoin.archivedCoinDo.TableName()
 	_archivedCoin.ALL = field.NewAsterisk(tableName)
 	_archivedCoin.ID = field.NewInt64(tableName, "id")
-	_archivedCoin.CreateTime = field.NewInt64(tableName, "create_time")
-	_archivedCoin.UpdateTime = field.NewInt64(tableName, "update_time")
+	_archivedCoin.CreateTime = field.NewTime(tableName, "create_time")
+	_archivedCoin.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedCoin.DeleteTime = field.NewField(tableName, "delete_time")
 	_archivedCoin.Fid = field.NewString(tableName, "fid")
 	_archivedCoin.Vid = field.NewString(tableName, "vid")
@@ -54,8 +54,8 @@ type archivedCoin struct {
 
 	ALL        field.Asterisk
 	ID         field.Int64
-	CreateTime field.Int64
-	UpdateTime field.Int64
+	CreateTime field.Time
+	UpdateTime field.Time
 	DeleteTime field.Field
 	Fid        field.String // bili folder
 	Vid        field.String // bili avid
@@ -85,8 +85,8 @@ func (a archivedCoin) As(alias string) *archivedCoin {
 func (a *archivedCoin) updateTableName(table string) *archivedCoin {
 	a.ALL = field.NewAsterisk(table)
 	a.ID = field.NewInt64(table, "id")
-	a.CreateTime = field.NewInt64(table, "create_time")
-	a.UpdateTime = field.NewInt64(table, "update_time")
+	a.CreateTime = field.NewTime(table, "create_time")
+	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
 	a.Fid = field.NewString(table, "fid")
 	a.Vid = field.NewString(table, "vid")
