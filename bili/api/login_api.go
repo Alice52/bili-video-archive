@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"time"
 )
 
 const (
@@ -67,17 +68,24 @@ func (client *BClient) loginWithQrCode(writer io.Writer) (<-chan LoginResp, erro
 	}
 
 	if err = GenerateAndEmail(generateQrCodeResp.Data.URL, qrcode.Low, writer); err != nil {
-		return nil, err
+		// return nil, err
 	}
 
 	var loginResp = make(chan LoginResp)
 	go func() {
-		defer close(loginResp)
 		var (
 			pollQrCodeResp *PollQrCodeResp
 			respHeader     http.Header
 		)
+		first := true
+		defer func() {
+			close(loginResp)
+		}()
 		for {
+			if !first {
+				time.Sleep(30 * time.Second)
+			}
+			first = false
 			pollQrCodeResp, respHeader, err = client.PollQrcode(generateQrCodeResp.Data.QrcodeKey)
 			if err != nil {
 				loginResp <- LoginResp{
@@ -97,6 +105,7 @@ func (client *BClient) loginWithQrCode(writer io.Writer) (<-chan LoginResp, erro
 				continue
 			}
 		}
+
 	}()
 	return loginResp, nil
 }

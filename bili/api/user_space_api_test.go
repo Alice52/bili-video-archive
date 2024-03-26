@@ -18,15 +18,9 @@ func TestClient_IsLogin(t *testing.T) {
 }
 
 func TestClient_MySpaceInfo(t *testing.T) {
-	global.VIPER = viperx.Viper(&global.CONFIG, "../../config.yaml")
+	global.VIPER = viperx.Viper(&global.CONFIG, "../config-local.yaml")
 
-	client, err := GetLogonClient()
-	if err != nil {
-		t.Error(err)
-		return
-	}
-
-	info, err := client.MySpaceInfo()
+	info, err := logonFunc().MySpaceInfo()
 	if err != nil {
 		t.Error(err)
 		return

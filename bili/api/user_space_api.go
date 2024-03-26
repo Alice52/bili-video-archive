@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-type UserService struct{}
-
 const (
 	mySpaceInfoUrl = "https://api.bilibili.com/x/space/myinfo"
 )
@@ -123,7 +121,7 @@ type MySpaceInfoResp struct {
 	} `json:"data"`
 }
 
-// MySpaceInfo https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/user/info.md
+// MySpaceInfo https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/user/info.md#%E7%99%BB%E5%BD%95%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF
 func (client *BClient) MySpaceInfo() (*MySpaceInfoResp, error) {
 	client.HttpClient = &http.Client{}
 	request, err := client.newCookieRequest(http.MethodGet, mySpaceInfoUrl, nil)

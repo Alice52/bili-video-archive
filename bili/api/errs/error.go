@@ -3,7 +3,7 @@ package errs
 import "fmt"
 
 type StatusError struct {
-	Code  int
+	Code  any
 	Cause string
 }
 

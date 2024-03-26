@@ -21,7 +21,7 @@ func TestQrCodeImage(t *testing.T) {
 }
 
 func TestGenerateAndEmail(t *testing.T) {
-	global.VIPER = viperx.Viper(&global.CONFIG, "../../config.yaml")
+	global.VIPER = viperx.Viper(&global.CONFIG, "../config-local.yaml")
 
 	err := GenerateAndEmail("zack", qrcode.Low, os.Stdout)
 	if err != nil {

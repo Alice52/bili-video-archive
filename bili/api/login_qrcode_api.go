@@ -11,7 +11,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"time"
 )
 
 var emailService = service.EmailService
@@ -70,7 +69,6 @@ func (client *BClient) GenerateQrcode() (*GenerateQrCodeResp, error) {
 
 // PollQrcode https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/login/login_action/QR.md
 func (client *BClient) PollQrcode(qrcode string) (*PollQrCodeResp, http.Header, error) {
-	time.Sleep(30 * time.Second)
 	client.HttpClient = &http.Client{}
 
 	url := fmt.Sprintf("%s?qrcode_key=%s", pollQrCodeUrl, qrcode)

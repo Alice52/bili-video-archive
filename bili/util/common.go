@@ -39,7 +39,6 @@ func MustMarshalIndent(t interface{}) string {
 // This is a shallow copy, means that the returned string reuse the
 // underlying array in byte slice, it's your responsibility to keep
 // the input byte slice survive until you don't access the string anymore.
-//
 func ByteSliceToString(bs []byte) string {
 	return *(*string)(unsafe.Pointer(&bs))
 }
@@ -49,7 +48,6 @@ func ByteSliceToString(bs []byte) string {
 // This is a shallow copy, means that the returned byte slice reuse
 // the underlying array in string, so you can't change the returned
 // byte slice in any situations.
-//
 func StringToByteSlice(s string) []byte {
 	var bs []byte
 	bh := (*reflect.SliceHeader)(unsafe.Pointer(&bs))
