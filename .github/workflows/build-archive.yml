@@ -40,7 +40,7 @@ jobs:
           go-version: ${{ matrix.go }}
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ${{ env.GOPATH }}/pkg/mod
