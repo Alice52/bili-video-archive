@@ -3,8 +3,9 @@ module github.com/alice52/archive/bili
 go 1.20
 
 require (
-	github.com/alice52/archive/common v0.0.0-20240326163429-a4ca66275d85
+	github.com/alice52/archive/common v0.0.0-20240327134504-8437a4076168
 	github.com/alice52/jasypt-go v1.0.6
+	github.com/gookit/goutil v0.6.15
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/cast v1.6.0
 	github.com/wordpress-plus/kit-logger v0.0.5
@@ -20,7 +21,6 @@ require (
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/golang-migrate/migrate/v4 v4.16.2 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/gookit/goutil v0.6.15 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
