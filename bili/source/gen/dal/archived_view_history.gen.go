@@ -31,6 +31,7 @@ func newArchivedViewHistory(db *gorm.DB, opts ...gen.DOOption) archivedViewHisto
 	_archivedViewHistory.CreateTime = field.NewTime(tableName, "create_time")
 	_archivedViewHistory.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedViewHistory.DeleteTime = field.NewField(tableName, "delete_time")
+	_archivedViewHistory.Resp = field.NewString(tableName, "resp")
 
 	_archivedViewHistory.fillFieldMap()
 
@@ -46,6 +47,7 @@ type archivedViewHistory struct {
 	CreateTime field.Time
 	UpdateTime field.Time
 	DeleteTime field.Field
+	Resp       field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -66,6 +68,7 @@ func (a *archivedViewHistory) updateTableName(table string) *archivedViewHistory
 	a.CreateTime = field.NewTime(table, "create_time")
 	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
+	a.Resp = field.NewString(table, "resp")
 
 	a.fillFieldMap()
 
@@ -82,11 +85,12 @@ func (a *archivedViewHistory) GetFieldByName(fieldName string) (field.OrderExpr,
 }
 
 func (a *archivedViewHistory) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 4)
+	a.fieldMap = make(map[string]field.Expr, 5)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
+	a.fieldMap["resp"] = a.Resp
 }
 
 func (a archivedViewHistory) clone(db *gorm.DB) archivedViewHistory {

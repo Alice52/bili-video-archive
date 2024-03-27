@@ -15,7 +15,7 @@ func init() {
 }
 
 func TestUserFavOfFolder(t *testing.T) {
-	info, err := logonFunc().UserFavOfFolder("1539405918")
+	info, err := logonFunc().UserFavOfFolder(1539405918)
 	if err != nil {
 		t.Error(err)
 		return

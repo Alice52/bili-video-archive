@@ -27,13 +27,15 @@ func newArchivedFavFolder(db *gorm.DB, opts ...gen.DOOption) archivedFavFolder {
 
 	tableName := _archivedFavFolder.archivedFavFolderDo.TableName()
 	_archivedFavFolder.ALL = field.NewAsterisk(tableName)
-	_archivedFavFolder.Fid = field.NewString(tableName, "fid")
+	_archivedFavFolder.ID = field.NewInt64(tableName, "id")
+	_archivedFavFolder.Fid = field.NewInt64(tableName, "fid")
 	_archivedFavFolder.CreateTime = field.NewTime(tableName, "create_time")
 	_archivedFavFolder.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedFavFolder.DeleteTime = field.NewField(tableName, "delete_time")
-	_archivedFavFolder.Mid = field.NewString(tableName, "mid")
-	_archivedFavFolder.MediaCount = field.NewString(tableName, "media_count")
+	_archivedFavFolder.Mid = field.NewInt64(tableName, "mid")
+	_archivedFavFolder.MediaCount = field.NewInt64(tableName, "media_count")
 	_archivedFavFolder.Title = field.NewString(tableName, "title")
+	_archivedFavFolder.Resp = field.NewString(tableName, "resp")
 
 	_archivedFavFolder.fillFieldMap()
 
@@ -45,13 +47,15 @@ type archivedFavFolder struct {
 	archivedFavFolderDo
 
 	ALL        field.Asterisk
-	Fid        field.String // bili folder id
+	ID         field.Int64
+	Fid        field.Int64 // bili folder id
 	CreateTime field.Time
 	UpdateTime field.Time
 	DeleteTime field.Field
-	Mid        field.String // bili uid
-	MediaCount field.String // media count
+	Mid        field.Int64  // bili uid
+	MediaCount field.Int64  // media count
 	Title      field.String // title
+	Resp       field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -68,13 +72,15 @@ func (a archivedFavFolder) As(alias string) *archivedFavFolder {
 
 func (a *archivedFavFolder) updateTableName(table string) *archivedFavFolder {
 	a.ALL = field.NewAsterisk(table)
-	a.Fid = field.NewString(table, "fid")
+	a.ID = field.NewInt64(table, "id")
+	a.Fid = field.NewInt64(table, "fid")
 	a.CreateTime = field.NewTime(table, "create_time")
 	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
-	a.Mid = field.NewString(table, "mid")
-	a.MediaCount = field.NewString(table, "media_count")
+	a.Mid = field.NewInt64(table, "mid")
+	a.MediaCount = field.NewInt64(table, "media_count")
 	a.Title = field.NewString(table, "title")
+	a.Resp = field.NewString(table, "resp")
 
 	a.fillFieldMap()
 
@@ -91,7 +97,8 @@ func (a *archivedFavFolder) GetFieldByName(fieldName string) (field.OrderExpr, b
 }
 
 func (a *archivedFavFolder) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 7)
+	a.fieldMap = make(map[string]field.Expr, 9)
+	a.fieldMap["id"] = a.ID
 	a.fieldMap["fid"] = a.Fid
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
@@ -99,6 +106,7 @@ func (a *archivedFavFolder) fillFieldMap() {
 	a.fieldMap["mid"] = a.Mid
 	a.fieldMap["media_count"] = a.MediaCount
 	a.fieldMap["title"] = a.Title
+	a.fieldMap["resp"] = a.Resp
 }
 
 func (a archivedFavFolder) clone(db *gorm.DB) archivedFavFolder {

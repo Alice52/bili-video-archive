@@ -33,6 +33,7 @@ func newArchivedUpsTag(db *gorm.DB, opts ...gen.DOOption) archivedUpsTag {
 	_archivedUpsTag.DeleteTime = field.NewTime(tableName, "delete_time")
 	_archivedUpsTag.Name = field.NewString(tableName, "name")
 	_archivedUpsTag.Count_ = field.NewInt64(tableName, "count")
+	_archivedUpsTag.Resp = field.NewString(tableName, "resp")
 	_archivedUpsTag.Tip = field.NewString(tableName, "tip")
 
 	_archivedUpsTag.fillFieldMap()
@@ -51,6 +52,7 @@ type archivedUpsTag struct {
 	DeleteTime field.Time
 	Name       field.String // name
 	Count_     field.Int64  // count
+	Resp       field.String
 	Tip        field.String // tip
 
 	fieldMap map[string]field.Expr
@@ -74,6 +76,7 @@ func (a *archivedUpsTag) updateTableName(table string) *archivedUpsTag {
 	a.DeleteTime = field.NewTime(table, "delete_time")
 	a.Name = field.NewString(table, "name")
 	a.Count_ = field.NewInt64(table, "count")
+	a.Resp = field.NewString(table, "resp")
 	a.Tip = field.NewString(table, "tip")
 
 	a.fillFieldMap()
@@ -91,13 +94,14 @@ func (a *archivedUpsTag) GetFieldByName(fieldName string) (field.OrderExpr, bool
 }
 
 func (a *archivedUpsTag) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 7)
+	a.fieldMap = make(map[string]field.Expr, 8)
 	a.fieldMap["tag_id"] = a.TagID
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
 	a.fieldMap["name"] = a.Name
 	a.fieldMap["count"] = a.Count_
+	a.fieldMap["resp"] = a.Resp
 	a.fieldMap["tip"] = a.Tip
 }
 

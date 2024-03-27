@@ -13,6 +13,7 @@ create table archived_ups
     follower    varchar(30) null comment 'up follower',
     `view`      varchar(30) null comment 'up view',
     likes       varchar(30) null comment 'up likes',
+    resp        json             null,
     video       varchar(30) null comment 'up video count',
     PRIMARY KEY (tag_id, mid)
 ) comment '关注的UP';

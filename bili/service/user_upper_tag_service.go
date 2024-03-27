@@ -5,6 +5,7 @@ import (
 	"github.com/alice52/archive/bili/source/gen/dal"
 	"github.com/alice52/archive/bili/source/gen/model"
 	"github.com/alice52/archive/common/global"
+	"github.com/gookit/goutil/jsonutil"
 	"go.uber.org/zap"
 )
 
@@ -23,7 +24,8 @@ func (c *UserUpperTagServiceIn) SyncUpperTags() (err error) {
 			Name:   &tag.Name,
 			Tip:    &tag.Tip,
 		}
-
+		resp := jsonutil.MustString(tag)
+		m.Resp = &resp
 		if err = dal.Q.ArchivedUpsTag.Save(m); err != nil {
 			global.LOG.Error("sync upper tags error", zap.Error(err))
 		}

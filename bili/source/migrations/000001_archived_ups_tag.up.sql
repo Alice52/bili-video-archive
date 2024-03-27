@@ -6,5 +6,6 @@ create table archived_ups_tag
     delete_time datetime(3) null,
     `name`      varchar(64) null comment 'name',
     `count`     bigint null comment 'count',
+    resp        json             null,
     tip         varchar(128) null comment 'tip'
 ) comment '关注的UP主分组';

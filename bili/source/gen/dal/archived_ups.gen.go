@@ -40,6 +40,7 @@ func newArchivedUp(db *gorm.DB, opts ...gen.DOOption) archivedUp {
 	_archivedUp.Follower = field.NewString(tableName, "follower")
 	_archivedUp.View = field.NewString(tableName, "view")
 	_archivedUp.Likes = field.NewString(tableName, "likes")
+	_archivedUp.Resp = field.NewString(tableName, "resp")
 	_archivedUp.Video = field.NewString(tableName, "video")
 	_archivedUp.UpTag = archivedUpHasOneUpTag{
 		db: db.Session(&gorm.Session{}),
@@ -70,6 +71,7 @@ type archivedUp struct {
 	Follower   field.String // up follower
 	View       field.String // up view
 	Likes      field.String // up likes
+	Resp       field.String
 	Video      field.String // up video count
 	UpTag      archivedUpHasOneUpTag
 
@@ -101,6 +103,7 @@ func (a *archivedUp) updateTableName(table string) *archivedUp {
 	a.Follower = field.NewString(table, "follower")
 	a.View = field.NewString(table, "view")
 	a.Likes = field.NewString(table, "likes")
+	a.Resp = field.NewString(table, "resp")
 	a.Video = field.NewString(table, "video")
 
 	a.fillFieldMap()
@@ -118,7 +121,7 @@ func (a *archivedUp) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *archivedUp) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 15)
+	a.fieldMap = make(map[string]field.Expr, 16)
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
@@ -132,6 +135,7 @@ func (a *archivedUp) fillFieldMap() {
 	a.fieldMap["follower"] = a.Follower
 	a.fieldMap["view"] = a.View
 	a.fieldMap["likes"] = a.Likes
+	a.fieldMap["resp"] = a.Resp
 	a.fieldMap["video"] = a.Video
 
 }

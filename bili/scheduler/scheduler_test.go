@@ -36,3 +36,35 @@ func TestSyncUppersService(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestSyncUserFavFolders(t *testing.T) {
+	err := service.UserFavFolderService.SyncUserFavFolders()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TestUserFavService(t *testing.T) {
+	err := service.UserFavService.SyncUserFav()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TestSyncUserLiked(t *testing.T) {
+
+	for true {
+		err := service.UserLikedService.SyncUserLiked()
+		if err != nil {
+			panic(err)
+		}
+
+	}
+}
+
+func TestSyncUserCoined(t *testing.T) {
+	err := service.UserCoinedService.SyncUserCoined()
+	if err != nil {
+		panic(err)
+	}
+}

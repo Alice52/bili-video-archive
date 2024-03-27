@@ -31,17 +31,19 @@ func newArchivedFav(db *gorm.DB, opts ...gen.DOOption) archivedFav {
 	_archivedFav.CreateTime = field.NewTime(tableName, "create_time")
 	_archivedFav.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedFav.DeleteTime = field.NewField(tableName, "delete_time")
-	_archivedFav.Fid = field.NewString(tableName, "fid")
-	_archivedFav.Vid = field.NewString(tableName, "vid")
+	_archivedFav.Fid = field.NewInt64(tableName, "fid")
+	_archivedFav.Bvid = field.NewString(tableName, "bvid")
 	_archivedFav.Cover = field.NewString(tableName, "cover")
+	_archivedFav.Ctime = field.NewInt64(tableName, "ctime")
 	_archivedFav.Duration = field.NewInt64(tableName, "duration")
 	_archivedFav.FavTime = field.NewInt64(tableName, "fav_time")
 	_archivedFav.Intro = field.NewString(tableName, "intro")
 	_archivedFav.Title = field.NewString(tableName, "title")
-	_archivedFav.Type = field.NewString(tableName, "type")
+	_archivedFav.Type = field.NewInt64(tableName, "type")
 	_archivedFav.Season = field.NewString(tableName, "season")
-	_archivedFav.UpperMid = field.NewString(tableName, "upper_mid")
+	_archivedFav.Upper = field.NewString(tableName, "upper")
 	_archivedFav.CntInfo = field.NewString(tableName, "cnt_info")
+	_archivedFav.Resp = field.NewString(tableName, "resp")
 	_archivedFav.FavFolder = archivedFavHasOneFavFolder{
 		db: db.Session(&gorm.Session{}),
 
@@ -62,17 +64,19 @@ type archivedFav struct {
 	CreateTime field.Time
 	UpdateTime field.Time
 	DeleteTime field.Field
-	Fid        field.String // bili folder
-	Vid        field.String // bili avid
+	Fid        field.Int64  // bili folder
+	Bvid       field.String // bili avid
 	Cover      field.String // video cover
+	Ctime      field.Int64  // video create time
 	Duration   field.Int64  // video duration
 	FavTime    field.Int64  // video favor time
 	Intro      field.String // video intro
 	Title      field.String // video title
-	Type       field.String // video type
+	Type       field.Int64  // video type
 	Season     field.String // video season
-	UpperMid   field.String // {"mid": 173986740, "name": "这个月-"}
+	Upper      field.String // {"mid": 173986740, "name": "这个月-"}
 	CntInfo    field.String // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
+	Resp       field.String
 	FavFolder  archivedFavHasOneFavFolder
 
 	fieldMap map[string]field.Expr
@@ -94,17 +98,19 @@ func (a *archivedFav) updateTableName(table string) *archivedFav {
 	a.CreateTime = field.NewTime(table, "create_time")
 	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
-	a.Fid = field.NewString(table, "fid")
-	a.Vid = field.NewString(table, "vid")
+	a.Fid = field.NewInt64(table, "fid")
+	a.Bvid = field.NewString(table, "bvid")
 	a.Cover = field.NewString(table, "cover")
+	a.Ctime = field.NewInt64(table, "ctime")
 	a.Duration = field.NewInt64(table, "duration")
 	a.FavTime = field.NewInt64(table, "fav_time")
 	a.Intro = field.NewString(table, "intro")
 	a.Title = field.NewString(table, "title")
-	a.Type = field.NewString(table, "type")
+	a.Type = field.NewInt64(table, "type")
 	a.Season = field.NewString(table, "season")
-	a.UpperMid = field.NewString(table, "upper_mid")
+	a.Upper = field.NewString(table, "upper")
 	a.CntInfo = field.NewString(table, "cnt_info")
+	a.Resp = field.NewString(table, "resp")
 
 	a.fillFieldMap()
 
@@ -121,22 +127,24 @@ func (a *archivedFav) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *archivedFav) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 16)
+	a.fieldMap = make(map[string]field.Expr, 18)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
 	a.fieldMap["fid"] = a.Fid
-	a.fieldMap["vid"] = a.Vid
+	a.fieldMap["bvid"] = a.Bvid
 	a.fieldMap["cover"] = a.Cover
+	a.fieldMap["ctime"] = a.Ctime
 	a.fieldMap["duration"] = a.Duration
 	a.fieldMap["fav_time"] = a.FavTime
 	a.fieldMap["intro"] = a.Intro
 	a.fieldMap["title"] = a.Title
 	a.fieldMap["type"] = a.Type
 	a.fieldMap["season"] = a.Season
-	a.fieldMap["upper_mid"] = a.UpperMid
+	a.fieldMap["upper"] = a.Upper
 	a.fieldMap["cnt_info"] = a.CntInfo
+	a.fieldMap["resp"] = a.Resp
 
 }
 

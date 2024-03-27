@@ -18,6 +18,7 @@ type ArchivedViewHistory struct {
 	CreateTime *time.Time     `gorm:"column:create_time;type:datetime(3);autoCreateTime" json:"create_time"`
 	UpdateTime *time.Time     `gorm:"column:update_time;type:datetime(3);autoUpdateTime" json:"update_time"`
 	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:datetime(3)" json:"delete_time"`
+	Resp       *string        `gorm:"column:resp;type:json" json:"resp"`
 }
 
 // TableName ArchivedViewHistory's table name

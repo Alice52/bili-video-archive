@@ -20,7 +20,8 @@ type ArchivedUpsTag struct {
 	DeleteTime gorm.DeletedAt `gorm:"column:delete_time;type:datetime(3)" json:"delete_time"`
 	Name       *string        `gorm:"column:name;type:varchar(64);comment:name" json:"name"` // name
 	Count_     *int64         `gorm:"column:count;type:bigint;comment:count" json:"count"`   // count
-	Tip        *string        `gorm:"column:tip;type:varchar(128);comment:tip" json:"tip"`   // tip
+	Resp       *string        `gorm:"column:resp;type:json" json:"resp"`
+	Tip        *string        `gorm:"column:tip;type:varchar(128);comment:tip" json:"tip"` // tip
 }
 
 // TableName ArchivedUpsTag's table name

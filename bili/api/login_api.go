@@ -35,6 +35,7 @@ var (
 
 func (client *BClient) doLoginIfNecessary() error {
 	if client.isLogin() {
+		time.Sleep(2 * time.Second)
 		return nil
 	}
 

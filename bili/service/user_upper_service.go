@@ -5,6 +5,7 @@ import (
 	"github.com/alice52/archive/bili/source/gen/dal"
 	"github.com/alice52/archive/bili/source/gen/model"
 	"github.com/alice52/archive/common/global"
+	"github.com/gookit/goutil/jsonutil"
 	"github.com/spf13/cast"
 	"go.uber.org/zap"
 )
@@ -39,7 +40,8 @@ func DoSyncUppers(tagId int64) (err error) {
 			Uname: &upper.Uname,
 			Mid:   upper.Mid,
 		}
-
+		resp := jsonutil.MustString(upper)
+		m.Resp = &resp
 		if err = dal.Q.ArchivedUp.Save(m); err != nil {
 			global.LOG.Error("sync upper error", zap.Error(err))
 		}

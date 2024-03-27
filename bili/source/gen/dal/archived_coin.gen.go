@@ -27,20 +27,22 @@ func newArchivedCoin(db *gorm.DB, opts ...gen.DOOption) archivedCoin {
 
 	tableName := _archivedCoin.archivedCoinDo.TableName()
 	_archivedCoin.ALL = field.NewAsterisk(tableName)
-	_archivedCoin.ID = field.NewInt64(tableName, "id")
+	_archivedCoin.Bvid = field.NewString(tableName, "bvid")
 	_archivedCoin.CreateTime = field.NewTime(tableName, "create_time")
 	_archivedCoin.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedCoin.DeleteTime = field.NewField(tableName, "delete_time")
-	_archivedCoin.Fid = field.NewString(tableName, "fid")
-	_archivedCoin.Vid = field.NewString(tableName, "vid")
+	_archivedCoin.Aid = field.NewInt64(tableName, "aid")
+	_archivedCoin.Cid = field.NewInt64(tableName, "cid")
 	_archivedCoin.Cover = field.NewString(tableName, "cover")
 	_archivedCoin.Duration = field.NewInt64(tableName, "duration")
-	_archivedCoin.CoinTime = field.NewInt64(tableName, "coin_time")
+	_archivedCoin.CoinedTime = field.NewInt64(tableName, "coined_time")
+	_archivedCoin.SeasonID = field.NewInt64(tableName, "season_id")
 	_archivedCoin.Intro = field.NewString(tableName, "intro")
 	_archivedCoin.Title = field.NewString(tableName, "title")
-	_archivedCoin.Type = field.NewString(tableName, "type")
-	_archivedCoin.Season = field.NewString(tableName, "season")
-	_archivedCoin.UpperMid = field.NewString(tableName, "upper_mid")
+	_archivedCoin.Type = field.NewInt64(tableName, "type")
+	_archivedCoin.Coins = field.NewInt64(tableName, "coins")
+	_archivedCoin.Owner = field.NewString(tableName, "owner")
+	_archivedCoin.Resp = field.NewString(tableName, "resp")
 	_archivedCoin.CntInfo = field.NewString(tableName, "cnt_info")
 
 	_archivedCoin.fillFieldMap()
@@ -53,20 +55,22 @@ type archivedCoin struct {
 	archivedCoinDo
 
 	ALL        field.Asterisk
-	ID         field.Int64
+	Bvid       field.String
 	CreateTime field.Time
 	UpdateTime field.Time
 	DeleteTime field.Field
-	Fid        field.String // bili folder
-	Vid        field.String // bili avid
+	Aid        field.Int64  // bili aid
+	Cid        field.Int64  // bili cid
 	Cover      field.String // video cover
 	Duration   field.Int64  // video duration
-	CoinTime   field.Int64  // video favor time
+	CoinedTime field.Int64  // video coin time
+	SeasonID   field.Int64  // bili season id
 	Intro      field.String // video intro
 	Title      field.String // video title
-	Type       field.String // video type
-	Season     field.String // video season
-	UpperMid   field.String // {"mid": 173986740, "name": "这个月-"}
+	Type       field.Int64  // video type
+	Coins      field.Int64  // video coins
+	Owner      field.String // {"mid": 173986740, "name": "这个月-"}
+	Resp       field.String
 	CntInfo    field.String // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
 
 	fieldMap map[string]field.Expr
@@ -84,20 +88,22 @@ func (a archivedCoin) As(alias string) *archivedCoin {
 
 func (a *archivedCoin) updateTableName(table string) *archivedCoin {
 	a.ALL = field.NewAsterisk(table)
-	a.ID = field.NewInt64(table, "id")
+	a.Bvid = field.NewString(table, "bvid")
 	a.CreateTime = field.NewTime(table, "create_time")
 	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
-	a.Fid = field.NewString(table, "fid")
-	a.Vid = field.NewString(table, "vid")
+	a.Aid = field.NewInt64(table, "aid")
+	a.Cid = field.NewInt64(table, "cid")
 	a.Cover = field.NewString(table, "cover")
 	a.Duration = field.NewInt64(table, "duration")
-	a.CoinTime = field.NewInt64(table, "coin_time")
+	a.CoinedTime = field.NewInt64(table, "coined_time")
+	a.SeasonID = field.NewInt64(table, "season_id")
 	a.Intro = field.NewString(table, "intro")
 	a.Title = field.NewString(table, "title")
-	a.Type = field.NewString(table, "type")
-	a.Season = field.NewString(table, "season")
-	a.UpperMid = field.NewString(table, "upper_mid")
+	a.Type = field.NewInt64(table, "type")
+	a.Coins = field.NewInt64(table, "coins")
+	a.Owner = field.NewString(table, "owner")
+	a.Resp = field.NewString(table, "resp")
 	a.CntInfo = field.NewString(table, "cnt_info")
 
 	a.fillFieldMap()
@@ -115,21 +121,23 @@ func (a *archivedCoin) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (a *archivedCoin) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 15)
-	a.fieldMap["id"] = a.ID
+	a.fieldMap = make(map[string]field.Expr, 17)
+	a.fieldMap["bvid"] = a.Bvid
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
-	a.fieldMap["fid"] = a.Fid
-	a.fieldMap["vid"] = a.Vid
+	a.fieldMap["aid"] = a.Aid
+	a.fieldMap["cid"] = a.Cid
 	a.fieldMap["cover"] = a.Cover
 	a.fieldMap["duration"] = a.Duration
-	a.fieldMap["coin_time"] = a.CoinTime
+	a.fieldMap["coined_time"] = a.CoinedTime
+	a.fieldMap["season_id"] = a.SeasonID
 	a.fieldMap["intro"] = a.Intro
 	a.fieldMap["title"] = a.Title
 	a.fieldMap["type"] = a.Type
-	a.fieldMap["season"] = a.Season
-	a.fieldMap["upper_mid"] = a.UpperMid
+	a.fieldMap["coins"] = a.Coins
+	a.fieldMap["owner"] = a.Owner
+	a.fieldMap["resp"] = a.Resp
 	a.fieldMap["cnt_info"] = a.CntInfo
 }
 

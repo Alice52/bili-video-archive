@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	favInFolderUrl = "https://api.bilibili.com/x/v3/fav/resource/list?media_id=%s&platform=web"
+	favInFolderUrl = "https://api.bilibili.com/x/v3/fav/resource/list?media_id=%d&platform=web"
 )
 
 // region response model
@@ -91,7 +91,7 @@ type MediaUpper struct {
 
 // UserFavOfFolder 获取收藏夹内容明细列表
 // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/fav/list.md#%E8%8E%B7%E5%8F%96%E6%94%B6%E8%97%8F%E5%A4%B9%E5%86%85%E5%AE%B9%E6%98%8E%E7%BB%86%E5%88%97%E8%A1%A8
-func (client *BClient) UserFavOfFolder(mediaId string) (*m.BResp[Fav], error) {
+func (client *BClient) UserFavOfFolder(mediaId int64) (*m.BResp[Fav], error) {
 	fav := &m.BResp[Fav]{}
 	if bs, err := client.GetListAll4FavOfFolder(fmt.Sprintf(favInFolderUrl, mediaId)); err != nil {
 		return nil, err

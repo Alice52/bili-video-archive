@@ -27,7 +27,8 @@ type ArchivedUp struct {
 	Follower   *string        `gorm:"column:follower;type:varchar(30);comment:up follower" json:"follower"`    // up follower
 	View       *string        `gorm:"column:view;type:varchar(30);comment:up view" json:"view"`                // up view
 	Likes      *string        `gorm:"column:likes;type:varchar(30);comment:up likes" json:"likes"`             // up likes
-	Video      *string        `gorm:"column:video;type:varchar(30);comment:up video count" json:"video"`       // up video count
+	Resp       *string        `gorm:"column:resp;type:json" json:"resp"`
+	Video      *string        `gorm:"column:video;type:varchar(30);comment:up video count" json:"video"` // up video count
 	UpTag      ArchivedUpsTag `gorm:"foreignKey:tag_id" json:"up_tag"`
 }
 
