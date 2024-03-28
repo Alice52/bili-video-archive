@@ -13,7 +13,7 @@ require (
 	go.uber.org/zap v1.26.0
 	gorm.io/driver/mysql v1.5.6
 	gorm.io/gen v0.3.25
-	gorm.io/gorm v1.25.8
+	gorm.io/gorm v1.25.9
 	gorm.io/plugin/dbresolver v1.5.1
 )
 
