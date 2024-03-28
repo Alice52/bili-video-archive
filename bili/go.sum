@@ -1,7 +1,11 @@
+filippo.io/edwards25519 v1.1.0 h1:FNf4tywRC1HmFuKW5xopWpigGjJKiJSV0Cqo0cJWDaA=
+filippo.io/edwards25519 v1.1.0/go.mod h1:BxyFTGdWcka3PhytdK4V28tE5sGfRvvvRV7EaN4VDT4=
 github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 h1:L/gRVlceqvL25UVaW/CKtUDjefjrs0SPonmDGUVOYP0=
 github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migciow=
 github.com/alice52/archive/common v0.0.0-20240327134504-8437a4076168 h1:LhU6XcDSFm1yv8qV+yNIHuYzJW1IihaFzox/wBA8E64=
 github.com/alice52/archive/common v0.0.0-20240327134504-8437a4076168/go.mod h1:xAUvGnPtdMBNbE2GV+3HdbpmYe6JkJqDIXXr4solN/g=
+github.com/alice52/archive/common v0.0.0-20240328093629-6f24ce5d8f53 h1:MyE+8WHGq0gEcI/j31WqB0g5zq+c3mwGaUuaPlyQ7HE=
+github.com/alice52/archive/common v0.0.0-20240328093629-6f24ce5d8f53/go.mod h1:i+t69bODZx9iVjT9WvW6fkF2m/yV42bDw3akS85CKnU=
 github.com/alice52/jasypt-go v1.0.6 h1:zHV8YpOzEjRJqHe8mAvriwixqaiwNgSGSmNOoPiZpW4=
 github.com/alice52/jasypt-go v1.0.6/go.mod h1:HVya1CYldkpZE7d/V4HRgT1NlsewWGozfPTU27ZYFHk=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -20,6 +24,8 @@ github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LB
 github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
 github.com/go-sql-driver/mysql v1.7.1 h1:lUIinVbN1DY0xBg0eMOzmmtGoHwWBbvnWubQUrtU8EI=
 github.com/go-sql-driver/mysql v1.7.1/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
+github.com/go-sql-driver/mysql v1.8.1 h1:LedoTUt/eveggdHS9qUFC1EFSa8bU2+1pZjSRpvNJ1Y=
+github.com/go-sql-driver/mysql v1.8.1/go.mod h1:wEBSXgmK//2ZFJyE+qWnIsVGmvmEKlqwuVSjsCm7DZg=
 github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
 github.com/golang-migrate/migrate/v4 v4.16.2 h1:8coYbMKUyInrFk1lfGfRovTLAW7PhWp8qQDT2iKfuoA=
 github.com/golang-migrate/migrate/v4 v4.16.2/go.mod h1:pfcJX4nPHaVdc5nmdCikFBWtm+UBpiZjRNNsyBbp0/o=

@@ -3,7 +3,7 @@ module github.com/alice52/archive/bili
 go 1.20
 
 require (
-	github.com/alice52/archive/common v0.0.0-20240327134504-8437a4076168
+	github.com/alice52/archive/common v0.0.0-20240328093629-6f24ce5d8f53
 	github.com/alice52/jasypt-go v1.0.6
 	github.com/gookit/goutil v0.6.15
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
@@ -18,9 +18,10 @@ require (
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/go-sql-driver/mysql v1.7.1 // indirect
+	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/golang-migrate/migrate/v4 v4.16.2 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
