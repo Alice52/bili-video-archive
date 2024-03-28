@@ -14,8 +14,8 @@ func init() {
 	global.LOG = zapx.Zap(global.CONFIG.Zap)
 }
 
-func TestUppersOfTag(t *testing.T) {
-	info, err := logonFunc().UppersOfTag(-10)
+func TestSeasonSection(t *testing.T) {
+	info, err := logonFunc().SeasonSection("", "729217") //
 	if err != nil {
 		t.Error(err)
 		return

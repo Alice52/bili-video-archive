@@ -14,8 +14,8 @@ func init() {
 	global.LOG = zapx.Zap(global.CONFIG.Zap)
 }
 
-func TestUppersOfTag(t *testing.T) {
-	info, err := logonFunc().UppersOfTag(-10)
+func TestGetVideoInfo(t *testing.T) {
+	info, err := logonFunc().VideoInfo("BV117411r7R1")
 	if err != nil {
 		t.Error(err)
 		return

@@ -23,6 +23,15 @@ func init() {
 	}
 }
 
+func TestVideoFk(t *testing.T) {
+
+	dal.SetDefault(global.DB)
+	find, err := dal.ArchivedCoin.Preload(dal.ArchivedCoin.VideoInfo).Find()
+	if find != nil && err != nil {
+		return
+	}
+}
+
 func TestUserUpperTagService(t *testing.T) {
 	err := service.UserUpperTagService.SyncUpperTags()
 	if err != nil {

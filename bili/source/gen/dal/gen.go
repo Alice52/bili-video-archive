@@ -21,8 +21,10 @@ var (
 	ArchivedFav         *archivedFav
 	ArchivedFavFolder   *archivedFavFolder
 	ArchivedLike        *archivedLike
+	ArchivedSeason      *archivedSeason
 	ArchivedUp          *archivedUp
 	ArchivedUpsTag      *archivedUpsTag
+	ArchivedVideo       *archivedVideo
 	ArchivedViewHistory *archivedViewHistory
 	SchemaMigration     *schemaMigration
 )
@@ -33,8 +35,10 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	ArchivedFav = &Q.ArchivedFav
 	ArchivedFavFolder = &Q.ArchivedFavFolder
 	ArchivedLike = &Q.ArchivedLike
+	ArchivedSeason = &Q.ArchivedSeason
 	ArchivedUp = &Q.ArchivedUp
 	ArchivedUpsTag = &Q.ArchivedUpsTag
+	ArchivedVideo = &Q.ArchivedVideo
 	ArchivedViewHistory = &Q.ArchivedViewHistory
 	SchemaMigration = &Q.SchemaMigration
 }
@@ -46,8 +50,10 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		ArchivedFav:         newArchivedFav(db, opts...),
 		ArchivedFavFolder:   newArchivedFavFolder(db, opts...),
 		ArchivedLike:        newArchivedLike(db, opts...),
+		ArchivedSeason:      newArchivedSeason(db, opts...),
 		ArchivedUp:          newArchivedUp(db, opts...),
 		ArchivedUpsTag:      newArchivedUpsTag(db, opts...),
+		ArchivedVideo:       newArchivedVideo(db, opts...),
 		ArchivedViewHistory: newArchivedViewHistory(db, opts...),
 		SchemaMigration:     newSchemaMigration(db, opts...),
 	}
@@ -60,8 +66,10 @@ type Query struct {
 	ArchivedFav         archivedFav
 	ArchivedFavFolder   archivedFavFolder
 	ArchivedLike        archivedLike
+	ArchivedSeason      archivedSeason
 	ArchivedUp          archivedUp
 	ArchivedUpsTag      archivedUpsTag
+	ArchivedVideo       archivedVideo
 	ArchivedViewHistory archivedViewHistory
 	SchemaMigration     schemaMigration
 }
@@ -75,8 +83,10 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		ArchivedFav:         q.ArchivedFav.clone(db),
 		ArchivedFavFolder:   q.ArchivedFavFolder.clone(db),
 		ArchivedLike:        q.ArchivedLike.clone(db),
+		ArchivedSeason:      q.ArchivedSeason.clone(db),
 		ArchivedUp:          q.ArchivedUp.clone(db),
 		ArchivedUpsTag:      q.ArchivedUpsTag.clone(db),
+		ArchivedVideo:       q.ArchivedVideo.clone(db),
 		ArchivedViewHistory: q.ArchivedViewHistory.clone(db),
 		SchemaMigration:     q.SchemaMigration.clone(db),
 	}
@@ -97,8 +107,10 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		ArchivedFav:         q.ArchivedFav.replaceDB(db),
 		ArchivedFavFolder:   q.ArchivedFavFolder.replaceDB(db),
 		ArchivedLike:        q.ArchivedLike.replaceDB(db),
+		ArchivedSeason:      q.ArchivedSeason.replaceDB(db),
 		ArchivedUp:          q.ArchivedUp.replaceDB(db),
 		ArchivedUpsTag:      q.ArchivedUpsTag.replaceDB(db),
+		ArchivedVideo:       q.ArchivedVideo.replaceDB(db),
 		ArchivedViewHistory: q.ArchivedViewHistory.replaceDB(db),
 		SchemaMigration:     q.SchemaMigration.replaceDB(db),
 	}
@@ -109,8 +121,10 @@ type queryCtx struct {
 	ArchivedFav         IArchivedFavDo
 	ArchivedFavFolder   IArchivedFavFolderDo
 	ArchivedLike        IArchivedLikeDo
+	ArchivedSeason      IArchivedSeasonDo
 	ArchivedUp          IArchivedUpDo
 	ArchivedUpsTag      IArchivedUpsTagDo
+	ArchivedVideo       IArchivedVideoDo
 	ArchivedViewHistory IArchivedViewHistoryDo
 	SchemaMigration     ISchemaMigrationDo
 }
@@ -121,8 +135,10 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		ArchivedFav:         q.ArchivedFav.WithContext(ctx),
 		ArchivedFavFolder:   q.ArchivedFavFolder.WithContext(ctx),
 		ArchivedLike:        q.ArchivedLike.WithContext(ctx),
+		ArchivedSeason:      q.ArchivedSeason.WithContext(ctx),
 		ArchivedUp:          q.ArchivedUp.WithContext(ctx),
 		ArchivedUpsTag:      q.ArchivedUpsTag.WithContext(ctx),
+		ArchivedVideo:       q.ArchivedVideo.WithContext(ctx),
 		ArchivedViewHistory: q.ArchivedViewHistory.WithContext(ctx),
 		SchemaMigration:     q.SchemaMigration.WithContext(ctx),
 	}

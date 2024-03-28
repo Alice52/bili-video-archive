@@ -16,6 +16,11 @@ type BResp[T any] struct {
 	Data T `json:"data"`
 }
 
+type BRespR[T any] struct {
+	BPCResp
+	Data T `json:"result"`
+}
+
 type BRList[T any] struct {
 	HasMore bool  `json:"has_more"`
 	Info    T     `json:"info"`

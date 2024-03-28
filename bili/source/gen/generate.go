@@ -60,11 +60,12 @@ func main() {
 	// 这里创建个别模型仅仅是为了拿到`*generate.QueryStructMeta`类型对象用于后面的模型关联操作中
 	UpTag := g.GenerateModel("archived_ups_tag")
 	FavFolder := g.GenerateModel("archived_fav_folders")
+	Video := g.GenerateModel("archived_video")
 
 	allModel := g.GenerateAllTable(fieldOpts...)
 
 	// 创建有关联关系的模型文件
-	Uper := g.GenerateModel("archived_ups",
+	Upper := g.GenerateModel("archived_ups",
 		append(
 			fieldOpts,
 			gen.FieldRelate(field.HasOne, "UpTag", UpTag,
@@ -78,11 +79,34 @@ func main() {
 			fieldOpts,
 			gen.FieldRelate(field.HasOne, "FavFolder", FavFolder,
 				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"fid"}}}),
+			gen.FieldRelate(field.HasOne, "VideoInfo", Video,
+				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"bvid"}}}),
 		)...,
 	)
 
+	Coin := g.GenerateModel("archived_coin",
+		append(
+			fieldOpts,
+			gen.FieldRelate(field.HasOne, "VideoInfo", Video,
+				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"bvid"}}}),
+		)...,
+	)
+	Like := g.GenerateModel("archived_like",
+		append(
+			fieldOpts,
+			gen.FieldRelate(field.HasOne, "VideoInfo", Video,
+				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"bvid"}}}),
+		)...,
+	)
+	History := g.GenerateModel("archived_view_history",
+		append(
+			fieldOpts,
+			gen.FieldRelate(field.HasOne, "VideoInfo", Video,
+				&field.RelateConfig{GORMTag: map[string][]string{"foreignKey": {"bvid"}}}),
+		)...,
+	)
 	// 创建模型的方法,生成文件在 query 目录; 先创建结果不会被后创建的覆盖
-	g.ApplyBasic(Uper, UpTag, Fav)
+	g.ApplyBasic(Video, Upper, UpTag, Fav, Like, Coin, History)
 	g.ApplyBasic(allModel...)
 	// g.ApplyInterface(func(UserInterface) {}, g.GenerateModel("user"))
 

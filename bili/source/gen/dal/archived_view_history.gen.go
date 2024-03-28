@@ -27,11 +27,16 @@ func newArchivedViewHistory(db *gorm.DB, opts ...gen.DOOption) archivedViewHisto
 
 	tableName := _archivedViewHistory.archivedViewHistoryDo.TableName()
 	_archivedViewHistory.ALL = field.NewAsterisk(tableName)
-	_archivedViewHistory.ID = field.NewInt64(tableName, "id")
+	_archivedViewHistory.Bvid = field.NewString(tableName, "bvid")
 	_archivedViewHistory.CreateTime = field.NewTime(tableName, "create_time")
 	_archivedViewHistory.UpdateTime = field.NewTime(tableName, "update_time")
 	_archivedViewHistory.DeleteTime = field.NewField(tableName, "delete_time")
 	_archivedViewHistory.Resp = field.NewString(tableName, "resp")
+	_archivedViewHistory.VideoInfo = archivedViewHistoryHasOneVideoInfo{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("VideoInfo", "model.ArchivedVideo"),
+	}
 
 	_archivedViewHistory.fillFieldMap()
 
@@ -43,11 +48,12 @@ type archivedViewHistory struct {
 	archivedViewHistoryDo
 
 	ALL        field.Asterisk
-	ID         field.Int64
+	Bvid       field.String
 	CreateTime field.Time
 	UpdateTime field.Time
 	DeleteTime field.Field
 	Resp       field.String
+	VideoInfo  archivedViewHistoryHasOneVideoInfo
 
 	fieldMap map[string]field.Expr
 }
@@ -64,7 +70,7 @@ func (a archivedViewHistory) As(alias string) *archivedViewHistory {
 
 func (a *archivedViewHistory) updateTableName(table string) *archivedViewHistory {
 	a.ALL = field.NewAsterisk(table)
-	a.ID = field.NewInt64(table, "id")
+	a.Bvid = field.NewString(table, "bvid")
 	a.CreateTime = field.NewTime(table, "create_time")
 	a.UpdateTime = field.NewTime(table, "update_time")
 	a.DeleteTime = field.NewField(table, "delete_time")
@@ -85,12 +91,13 @@ func (a *archivedViewHistory) GetFieldByName(fieldName string) (field.OrderExpr,
 }
 
 func (a *archivedViewHistory) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 5)
-	a.fieldMap["id"] = a.ID
+	a.fieldMap = make(map[string]field.Expr, 6)
+	a.fieldMap["bvid"] = a.Bvid
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
 	a.fieldMap["delete_time"] = a.DeleteTime
 	a.fieldMap["resp"] = a.Resp
+
 }
 
 func (a archivedViewHistory) clone(db *gorm.DB) archivedViewHistory {
@@ -101,6 +108,77 @@ func (a archivedViewHistory) clone(db *gorm.DB) archivedViewHistory {
 func (a archivedViewHistory) replaceDB(db *gorm.DB) archivedViewHistory {
 	a.archivedViewHistoryDo.ReplaceDB(db)
 	return a
+}
+
+type archivedViewHistoryHasOneVideoInfo struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a archivedViewHistoryHasOneVideoInfo) Where(conds ...field.Expr) *archivedViewHistoryHasOneVideoInfo {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a archivedViewHistoryHasOneVideoInfo) WithContext(ctx context.Context) *archivedViewHistoryHasOneVideoInfo {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a archivedViewHistoryHasOneVideoInfo) Session(session *gorm.Session) *archivedViewHistoryHasOneVideoInfo {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a archivedViewHistoryHasOneVideoInfo) Model(m *model.ArchivedViewHistory) *archivedViewHistoryHasOneVideoInfoTx {
+	return &archivedViewHistoryHasOneVideoInfoTx{a.db.Model(m).Association(a.Name())}
+}
+
+type archivedViewHistoryHasOneVideoInfoTx struct{ tx *gorm.Association }
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Find() (result *model.ArchivedVideo, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Append(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Replace(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Delete(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a archivedViewHistoryHasOneVideoInfoTx) Count() int64 {
+	return a.tx.Count()
 }
 
 type archivedViewHistoryDo struct{ gen.DO }

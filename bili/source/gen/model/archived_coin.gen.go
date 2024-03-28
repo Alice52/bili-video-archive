@@ -31,6 +31,7 @@ type ArchivedCoin struct {
 	Owner      *string        `gorm:"column:owner;type:json;comment:{"mid": 173986740, "name": "这个月-"}" json:"owner"`     // {"mid": 173986740, "name": "这个月-"}
 	Resp       *string        `gorm:"column:resp;type:json" json:"resp"`
 	CntInfo    *string        `gorm:"column:cnt_info;type:json;comment:{"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }" json:"cnt_info"` // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
+	VideoInfo  ArchivedVideo  `gorm:"foreignKey:bvid" json:"video_info"`
 }
 
 // TableName ArchivedCoin's table name

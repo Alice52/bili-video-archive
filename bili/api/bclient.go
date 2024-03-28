@@ -86,7 +86,7 @@ func (client *BClient) DoGet(url string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func (client *BClient) GetList(url string) ([]byte, error) {
+func (client *BClient) Get(url string) ([]byte, error) {
 
 	if b, err := client.DoGet(url); err != nil {
 		return nil, errors.New("read body error")
@@ -117,7 +117,7 @@ func (client *BClient) GetListAll4SpaceVideo(url string) (*m.BResp[m.BRListOfIte
 			u = url
 		}
 
-		b, err := client.GetList(u)
+		b, err := client.Get(u)
 		if err != nil {
 			return bpr, err
 		}
@@ -141,7 +141,7 @@ func (client *BClient) GetListAll4FavOfFolder(url string) (*m.BResp[m.BRList[jso
 	hasMore := true
 	pn := 1
 	for hasMore {
-		b, err := client.GetList(fmt.Sprintf("%s&pn=%d&ps=%d", url, pn, c.PageSizeMin))
+		b, err := client.Get(fmt.Sprintf("%s&pn=%d&ps=%d", url, pn, c.PageSizeMin))
 		if err != nil {
 			return bpr, err
 		}

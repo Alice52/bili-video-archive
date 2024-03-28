@@ -43,6 +43,11 @@ func newArchivedLike(db *gorm.DB, opts ...gen.DOOption) archivedLike {
 	_archivedLike.Owner = field.NewString(tableName, "owner")
 	_archivedLike.Resp = field.NewString(tableName, "resp")
 	_archivedLike.CntInfo = field.NewString(tableName, "cnt_info")
+	_archivedLike.VideoInfo = archivedLikeHasOneVideoInfo{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("VideoInfo", "model.ArchivedVideo"),
+	}
 
 	_archivedLike.fillFieldMap()
 
@@ -70,6 +75,7 @@ type archivedLike struct {
 	Owner      field.String // {"mid": 173986740, "name": "这个月-"}
 	Resp       field.String
 	CntInfo    field.String // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
+	VideoInfo  archivedLikeHasOneVideoInfo
 
 	fieldMap map[string]field.Expr
 }
@@ -118,7 +124,7 @@ func (a *archivedLike) GetFieldByName(fieldName string) (field.OrderExpr, bool) 
 }
 
 func (a *archivedLike) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 16)
+	a.fieldMap = make(map[string]field.Expr, 17)
 	a.fieldMap["bvid"] = a.Bvid
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
@@ -135,6 +141,7 @@ func (a *archivedLike) fillFieldMap() {
 	a.fieldMap["owner"] = a.Owner
 	a.fieldMap["resp"] = a.Resp
 	a.fieldMap["cnt_info"] = a.CntInfo
+
 }
 
 func (a archivedLike) clone(db *gorm.DB) archivedLike {
@@ -145,6 +152,77 @@ func (a archivedLike) clone(db *gorm.DB) archivedLike {
 func (a archivedLike) replaceDB(db *gorm.DB) archivedLike {
 	a.archivedLikeDo.ReplaceDB(db)
 	return a
+}
+
+type archivedLikeHasOneVideoInfo struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a archivedLikeHasOneVideoInfo) Where(conds ...field.Expr) *archivedLikeHasOneVideoInfo {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a archivedLikeHasOneVideoInfo) WithContext(ctx context.Context) *archivedLikeHasOneVideoInfo {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a archivedLikeHasOneVideoInfo) Session(session *gorm.Session) *archivedLikeHasOneVideoInfo {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a archivedLikeHasOneVideoInfo) Model(m *model.ArchivedLike) *archivedLikeHasOneVideoInfoTx {
+	return &archivedLikeHasOneVideoInfoTx{a.db.Model(m).Association(a.Name())}
+}
+
+type archivedLikeHasOneVideoInfoTx struct{ tx *gorm.Association }
+
+func (a archivedLikeHasOneVideoInfoTx) Find() (result *model.ArchivedVideo, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a archivedLikeHasOneVideoInfoTx) Append(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a archivedLikeHasOneVideoInfoTx) Replace(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a archivedLikeHasOneVideoInfoTx) Delete(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a archivedLikeHasOneVideoInfoTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a archivedLikeHasOneVideoInfoTx) Count() int64 {
+	return a.tx.Count()
 }
 
 type archivedLikeDo struct{ gen.DO }

@@ -101,7 +101,7 @@ type Stat struct {
 // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/user/space.md#%E6%9F%A5%E8%AF%A2%E7%94%A8%E6%88%B7%E6%9C%80%E8%BF%91%E7%82%B9%E8%B5%9E%E8%A7%86%E9%A2%91web
 func (client *BClient) UserLiked() (*m.BResp[LikedVideo], error) {
 	fav := &m.BResp[LikedVideo]{}
-	if bs, err := client.GetList(fmt.Sprintf(userLikeUrl, c.SelfMid)); err != nil {
+	if bs, err := client.Get(fmt.Sprintf(userLikeUrl, c.SelfMid)); err != nil {
 		return nil, err
 	} else {
 		return fav, json.Unmarshal(bs, &fav)

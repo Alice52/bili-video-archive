@@ -32,6 +32,7 @@ type ArchivedFav struct {
 	CntInfo    *string           `gorm:"column:cnt_info;type:json;comment:{"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }" json:"cnt_info"` // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
 	Resp       *string           `gorm:"column:resp;type:json" json:"resp"`
 	FavFolder  ArchivedFavFolder `gorm:"foreignKey:fid" json:"fav_folder"`
+	VideoInfo  ArchivedVideo     `gorm:"foreignKey:bvid" json:"video_info"`
 }
 
 // TableName ArchivedFav's table name

@@ -50,6 +50,12 @@ func newArchivedFav(db *gorm.DB, opts ...gen.DOOption) archivedFav {
 		RelationField: field.NewRelation("FavFolder", "model.ArchivedFavFolder"),
 	}
 
+	_archivedFav.VideoInfo = archivedFavHasOneVideoInfo{
+		db: db.Session(&gorm.Session{}),
+
+		RelationField: field.NewRelation("VideoInfo", "model.ArchivedVideo"),
+	}
+
 	_archivedFav.fillFieldMap()
 
 	return _archivedFav
@@ -78,6 +84,8 @@ type archivedFav struct {
 	CntInfo    field.String // {"collect": 73600, "play": 1068474, "danmaku": 2632, "vt": 0, "play_switch": 0, "reply": 0, "view_text_1": "106.8万" }
 	Resp       field.String
 	FavFolder  archivedFavHasOneFavFolder
+
+	VideoInfo archivedFavHasOneVideoInfo
 
 	fieldMap map[string]field.Expr
 }
@@ -127,7 +135,7 @@ func (a *archivedFav) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *archivedFav) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 18)
+	a.fieldMap = make(map[string]field.Expr, 19)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["create_time"] = a.CreateTime
 	a.fieldMap["update_time"] = a.UpdateTime
@@ -226,6 +234,77 @@ func (a archivedFavHasOneFavFolderTx) Clear() error {
 }
 
 func (a archivedFavHasOneFavFolderTx) Count() int64 {
+	return a.tx.Count()
+}
+
+type archivedFavHasOneVideoInfo struct {
+	db *gorm.DB
+
+	field.RelationField
+}
+
+func (a archivedFavHasOneVideoInfo) Where(conds ...field.Expr) *archivedFavHasOneVideoInfo {
+	if len(conds) == 0 {
+		return &a
+	}
+
+	exprs := make([]clause.Expression, 0, len(conds))
+	for _, cond := range conds {
+		exprs = append(exprs, cond.BeCond().(clause.Expression))
+	}
+	a.db = a.db.Clauses(clause.Where{Exprs: exprs})
+	return &a
+}
+
+func (a archivedFavHasOneVideoInfo) WithContext(ctx context.Context) *archivedFavHasOneVideoInfo {
+	a.db = a.db.WithContext(ctx)
+	return &a
+}
+
+func (a archivedFavHasOneVideoInfo) Session(session *gorm.Session) *archivedFavHasOneVideoInfo {
+	a.db = a.db.Session(session)
+	return &a
+}
+
+func (a archivedFavHasOneVideoInfo) Model(m *model.ArchivedFav) *archivedFavHasOneVideoInfoTx {
+	return &archivedFavHasOneVideoInfoTx{a.db.Model(m).Association(a.Name())}
+}
+
+type archivedFavHasOneVideoInfoTx struct{ tx *gorm.Association }
+
+func (a archivedFavHasOneVideoInfoTx) Find() (result *model.ArchivedVideo, err error) {
+	return result, a.tx.Find(&result)
+}
+
+func (a archivedFavHasOneVideoInfoTx) Append(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Append(targetValues...)
+}
+
+func (a archivedFavHasOneVideoInfoTx) Replace(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Replace(targetValues...)
+}
+
+func (a archivedFavHasOneVideoInfoTx) Delete(values ...*model.ArchivedVideo) (err error) {
+	targetValues := make([]interface{}, len(values))
+	for i, v := range values {
+		targetValues[i] = v
+	}
+	return a.tx.Delete(targetValues...)
+}
+
+func (a archivedFavHasOneVideoInfoTx) Clear() error {
+	return a.tx.Clear()
+}
+
+func (a archivedFavHasOneVideoInfoTx) Count() int64 {
 	return a.tx.Count()
 }
 
